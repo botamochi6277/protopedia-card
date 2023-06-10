@@ -1,20 +1,17 @@
-import { useState } from 'react'
-
 import { Container } from '@mui/material'
 import MyAppBar from './MyAppBar'
-
+import MyForm from './MyForm'
 
 
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-    <Container>
-      <MyAppBar title="ProtoPedia Card"/>
-      
-    </Container>
+      <Container maxWidth="sm">
+        <MyAppBar title="ProtoPedia Card" />
+        <MyForm />
+
+      </Container>
     </>
   )
 }
