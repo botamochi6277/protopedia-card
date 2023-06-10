@@ -7,15 +7,16 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
+import { IconButton } from '@mui/material';
 import UpdateIcon from '@mui/icons-material/Update';
-
+import TokenIcon from '@mui/icons-material/Token';
 import axios from 'axios';
 
 function MyForm() {
 
     const [access_token, setAccessToken] = useState('abcd')
 
-    const [project_id, setProjectId] = useState('efgh')
+    const [project_id, setProjectId] = useState('2385')
 
     const fetchProjectData = (token: String, prototype_id: String) => {
 
@@ -44,6 +45,9 @@ function MyForm() {
                         setAccessToken(event.target.value)
                     }}
                 />
+                <IconButton href='https://protopedia.net/settings/application' target='_blank' >
+                    <TokenIcon />
+                </IconButton>
 
                 <TextField
                     required
