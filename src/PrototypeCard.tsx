@@ -1,5 +1,6 @@
 import { Typography, Card, CardContent, CardMedia, Chip, CardActions, Stack } from "@mui/material";
 
+import MyForm from './MyForm'
 
 const DevelopingStatusChip = (props) => {
     const status = props.status;
@@ -36,11 +37,13 @@ function PrototypeCard(props) {
     const tags: String[] = props.tags;
     const materials: String[] = props.materials;
 
-
+    const fetchHandle = props.fetchHandle;
     const material_chips = materials.map((material) => <Chip label={material} color="info" key={`material-${material}`} />)
     const tag_chips = tags.map((tag) => <Chip label={tag} key={`tag-${tag}`} />)
     return (
         <Card variant="outlined">
+            <MyForm fetchHandle={fetchHandle} />
+
             <CardMedia
                 component="img"
                 image={images[0]}

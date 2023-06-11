@@ -1,8 +1,7 @@
 import { Component } from 'react'
 
 import { Container } from '@mui/material'
-import MyAppBar from './MyAppBar'
-import MyForm from './MyForm'
+
 import PrototypeCard from './PrototypeCard'
 
 
@@ -41,8 +40,6 @@ class App extends Component {
     return (
       <>
         <Container maxWidth="sm">
-          <MyAppBar title="ProtoPedia Card" />
-          <MyForm fetchHandle={this.handleStateChange} />
           <PrototypeCard
             name={this.state.name}
             developing_status={this.state.developing_status}
@@ -52,6 +49,7 @@ class App extends Component {
             team={this.state.team}
             materials={this.state.materials}
             tags={this.state.tags}
+            fetchHandle={this.handleStateChange}
           />
         </Container>
       </>

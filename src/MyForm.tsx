@@ -1,15 +1,18 @@
 import { useState } from 'react'
 
+import Stack from '@mui/material/Stack';
 
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
-import { IconButton } from '@mui/material';
+import Link from '@mui/material/Link';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+
 import UpdateIcon from '@mui/icons-material/Update';
-import TokenIcon from '@mui/icons-material/Token';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
 import axios from 'axios';
 
 function MyForm(props) {
@@ -32,46 +35,76 @@ function MyForm(props) {
     }
 
     return (
-        <Card>
-            <CardContent>
-                <Typography variant="h5" component="div">
-                    Form
+        <Accordion defaultExpanded={true}>
+            <AccordionSummary
+                expandIcon={<ExpandMoreIcon sx={{ color: 'white' }} />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+                sx={{
+                    backgroundColor: 'primary.main',
+                    color: "white",
+                }}
+            >
+                <Typography
+                    variant="h6"
+                    sx={{
+                        mr: 2,
+                        fontFamily: 'monospace',
+                        fontWeight: 700,
+                        letterSpacing: '.3rem',
+                        color: 'inherit',
+                        textDecoration: 'none',
+                    }}>ProtoPedia Card</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+                <Typography variant="h6" component="div" gutterBottom>
+                    Access Data Form
                 </Typography>
-            </CardContent>
-            <CardActions>
-                <TextField
-                    required
-                    id="access-token"
-                    label="access token"
-                    value={access_token}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                        setAccessToken(event.target.value)
-                    }}
-                />
-                <IconButton href='https://protopedia.net/settings/application' target='_blank' >
-                    <TokenIcon />
-                </IconButton>
+                <Stack
+                    direction={{ xs: 'column', sm: 'row' }}
+                    spacing={{ xs: 1, sm: 2, md: 4 }}
+                    alignItems="center"
+                >
+                    <TextField
+                        required
+                        id="access-token"
+                        label="access token"
+                        value={access_token}
+                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                            setAccessToken(event.target.value)
+                        }}
+                    />
 
-                <TextField
-                    required
-                    id="project-id"
-                    label="project id"
-                    value={project_id}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                        setProjectId(event.target.value)
-                    }}
-                />
+                    <TextField
+                        required
+                        id="project-id"
+                        label="project id"
+                        value={project_id}
+                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                            setProjectId(event.target.value)
+                        }}
+                    />
 
-                <Button
-                    variant="contained"
-                    startIcon={<UpdateIcon />}
-                    onClick={() => { fetchProjectData(access_token, project_id) }}>
-                    Fetch Data
-                </Button>
+                    <Button
+                        variant="contained"
+                        startIcon={<UpdateIcon />}
+                        onClick={() => { fetchProjectData(access_token, project_id) }}>
+                        Fetch
+                    </Button>
 
+                </Stack>
 
-            </CardActions>
-        </Card>
+                <Typography>
+                    You can get <Link href='https://protopedia.net/settings/application' target='_blank' >access token</Link> from ProtoPedia Page.
+                </Typography>
+                <Typography>
+                    You can get project id from a prototype page's url:
+                </Typography>
+                <Typography sx={{ fontFamily: 'monospace' }}>
+                    {"https://protopedia.net/prototype/${project_id}"}
+                </Typography>
+            </AccordionDetails>
+        </Accordion>
     )
 }
 
