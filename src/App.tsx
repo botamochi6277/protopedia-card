@@ -11,7 +11,7 @@ class App extends Component {
   state = {
     name: "Long Tail Whale",
     developing_status: 2,
-    images: ["https://protopedia.net/pic/9eabe827-d5dd-4297-bb5b-504f81722725.png", "https://protopedia.net/pic/9eabe827-d5dd-4297-bb5b-504f81722725.png"],
+    images: ["https://protopedia.net/pic/9eabe827-d5dd-4297-bb5b-504f81722725.png"],
     summary: "Long Tail Whale Robot with M5Atom inspired Qoobo.ユカイ工学のQooboに触発されて開発したしっぽロボットのクジラ版",
     developer: "botamochi6277",
     team: "BotaLab",
@@ -21,9 +21,11 @@ class App extends Component {
   }
 
   handleStateChange = (data) => {
-    const images = [
+    const images_ref = [
       data.image1, data.image2, data.image3, data.image4, data.image5
     ]
+
+    const images = images_ref.filter((im) => im); // remove null
 
     this.setState({
       name: data.prototypeNm,

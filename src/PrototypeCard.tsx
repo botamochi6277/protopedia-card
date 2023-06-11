@@ -1,5 +1,6 @@
-import { Typography, Card, CardContent, CardMedia, Chip, CardActions, Stack, Link } from "@mui/material";
-
+import { Typography, Card, CardContent, CardMedia, Chip, CardActions, Stack, Link, Box } from "@mui/material";
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
 import MyForm from './MyForm'
 
 const DevelopingStatusChip = (props) => {
@@ -25,6 +26,45 @@ const DevelopingStatusChip = (props) => {
     return chips[status];
 
 }
+
+function MyImageList(props) {
+    const images: String[] = props.images;
+
+    if (images.length <= 1) {
+        return (<></>)
+    }
+
+    const imageTitle = (name: String) => {
+        const s = name.split('/');
+        return s[s.length - 1]
+
+    }
+
+    const image_items = images.map(
+        (img) => {
+            return { img: img, title: imageTitle(img) }
+        }
+    )
+
+    return (
+        <Stack direction="row" spacing={1} justifyContent="center">
+            {image_items.map((item) => (
+                <ImageListItem key={item.img}
+                    sx={{
+                        height: 128,
+                    }}>
+                    <img
+                        src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
+                        srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                        alt={item.title}
+                        loading="lazy"
+                    />
+                </ImageListItem>
+            ))}
+        </Stack>
+    );
+}
+
 
 
 function PrototypeCard(props) {
@@ -67,8 +107,10 @@ function PrototypeCard(props) {
                 <Typography variant="body2" color="text.secondary">
                     {summary}
                 </Typography>
+            </CardContent>
 
-
+            <CardContent>
+                <MyImageList images={images.slice(1, 5)} />
             </CardContent>
 
             <CardContent>

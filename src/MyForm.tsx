@@ -81,7 +81,7 @@ function MyForm(props) {
                         textDecoration: 'none',
                     }}>ProtoPedia Card</Typography>
             </AccordionSummary>
-            <AccordionDetails>
+            <AccordionDetails sx={{ displayPrint: 'none' }}>
                 <Typography variant="h6" component="div" gutterBottom>
                     Access Data Form
                 </Typography>
