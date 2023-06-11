@@ -17,17 +17,42 @@ import axios from 'axios';
 
 function MyForm(props) {
 
-    const [access_token, setAccessToken] = useState('abcd')
+    const [access_token, setAccessToken] = useState('');
+    const [token_error, setTokenError] = useState(false);
+    const [token_help, setTokenHelp] = useState('');
 
-    const [project_id, setProjectId] = useState('2385')
+    const [prototype_id, setProtoTypeId] = useState('2385');
+    const [prototype_id_error, setPrototypeIdError] = useState(false);
+    const [prototype_id_help, setPrototypeIdHelp] = useState('');
 
     const fetchHandle = props.fetchHandle;
 
     const fetchProjectData = (token: String, prototype_id: String) => {
+        // input validation
+        const token_ref = token.match(/[a-f0-9]{32}/g);
+        if (!token_ref) {
+            setTokenError(true);
+            setTokenHelp('token must be 32 letters')
+            return;
+        } else {
+            setTokenError(false);
+            setTokenHelp('');
+        }
+
+        const id_ref = Number(prototype_id);
+        if (!id_ref) {
+            // id have non-number value
+            setPrototypeIdError(true);
+            setPrototypeIdHelp('ID must be numbers')
+            return;
+        } else {
+            setPrototypeIdError(false);
+            setPrototypeIdHelp('');
+        }
 
         const url = `https://protopedia.net/api/prototypes.json?token=${token}&prototypeId=${prototype_id}`
         axios.get(url).then((res) => {
-            console.log(res);
+            console.debug(res);
             fetchHandle(res.data[0]);
         }).catch((error) => {
             console.log(error);
@@ -70,6 +95,8 @@ function MyForm(props) {
                         id="access-token"
                         label="access token"
                         value={access_token}
+                        error={token_error}
+                        helperText={token_help}
                         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                             setAccessToken(event.target.value)
                         }}
@@ -77,18 +104,20 @@ function MyForm(props) {
 
                     <TextField
                         required
-                        id="project-id"
-                        label="project id"
-                        value={project_id}
+                        id="prototype-id"
+                        label="prototype id"
+                        value={prototype_id}
+                        error={prototype_id_error}
+                        helperText={prototype_id_help}
                         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                            setProjectId(event.target.value)
+                            setProtoTypeId(event.target.value)
                         }}
                     />
 
                     <Button
                         variant="contained"
                         startIcon={<UpdateIcon />}
-                        onClick={() => { fetchProjectData(access_token, project_id) }}>
+                        onClick={() => { fetchProjectData(access_token, prototype_id) }}>
                         Fetch
                     </Button>
 
@@ -98,10 +127,10 @@ function MyForm(props) {
                     You can get <Link href='https://protopedia.net/settings/application' target='_blank' >access token</Link> from ProtoPedia Page.
                 </Typography>
                 <Typography>
-                    You can get project id from a prototype page's url:
+                    You can get prototype id from a prototype page's url:
                 </Typography>
                 <Typography sx={{ fontFamily: 'monospace' }}>
-                    {"https://protopedia.net/prototype/${project_id}"}
+                    {"https://protopedia.net/prototype/${prototype_id}"}
                 </Typography>
             </AccordionDetails>
         </Accordion>
