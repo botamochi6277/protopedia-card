@@ -1,4 +1,4 @@
-import { Typography, Card, CardContent, CardMedia, Chip, CardActions, Stack } from "@mui/material";
+import { Typography, Card, CardContent, CardMedia, Chip, CardActions, Stack, Link } from "@mui/material";
 
 import MyForm from './MyForm'
 
@@ -36,10 +36,13 @@ function PrototypeCard(props) {
     const team: String = props.team;
     const tags: String[] = props.tags;
     const materials: String[] = props.materials;
+    const prototype_id = props.prototype_id;
 
     const fetchHandle = props.fetchHandle;
     const material_chips = materials.map((material) => <Chip label={material} color="info" key={`material-${material}`} />)
     const tag_chips = tags.map((tag) => <Chip label={tag} key={`tag-${tag}`} />)
+
+    const url = `https://protopedia.net/prototype/${prototype_id}`;
     return (
         <Card variant="outlined">
             <MyForm fetchHandle={fetchHandle} />
@@ -64,6 +67,19 @@ function PrototypeCard(props) {
                 <Typography variant="body2" color="text.secondary">
                     {summary}
                 </Typography>
+
+
+            </CardContent>
+
+            <CardContent>
+                <Stack alignItems="center" spacing={2}>
+                    <img src={`https://api.qrserver.com/v1/create-qr-code/?data=https://protopedia.net/prototype/${prototype_id}&size=128x128&format=svg`} alt="QR code" />
+                    <Typography sx={{ fontFamily: 'monospace' }}>
+                        <Link href={url}>
+                            {url}
+                        </Link>
+                    </Typography>
+                </Stack>
             </CardContent>
 
             <CardActions>

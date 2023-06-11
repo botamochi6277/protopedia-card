@@ -16,7 +16,8 @@ class App extends Component {
     developer: "botamochi6277",
     team: "BotaLab",
     materials: ["M5Stack"],
-    tags: ["tail", "doll"]
+    tags: ["tail", "doll"],
+    prototype_id: '2385'
   }
 
   handleStateChange = (data) => {
@@ -32,7 +33,8 @@ class App extends Component {
       developer: data.userNm,
       team: data.teamNm,
       materials: data.materialNm.split(','),
-      tags: data.tags.split(',')
+      tags: data.tags.split(','),
+      prototype_id: data.id
     })
   }
 
@@ -49,6 +51,7 @@ class App extends Component {
             team={this.state.team}
             materials={this.state.materials}
             tags={this.state.tags}
+            prototype_id={this.state.prototype_id}
             fetchHandle={this.handleStateChange}
           />
         </Container>
