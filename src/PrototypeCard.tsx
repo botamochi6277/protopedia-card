@@ -1,40 +1,30 @@
-import { Typography, Card, CardContent, CardMedia, Chip, CardActions, Stack, Link, Box } from "@mui/material";
-import ImageList from '@mui/material/ImageList';
+import { Typography, Card, CardContent, CardMedia, Chip, CardActions, Stack, Link } from "@mui/material";
+
 import ImageListItem from '@mui/material/ImageListItem';
 import MyForm from './MyForm'
 
-const DevelopingStatusChip = (props) => {
-    const status = props.status;
+const DevelopingStatusChip = (props: { status: number }) => {
+    const status = props.status - 1;
 
     // （1:アイデア, 2:開発中, 3:完成, 4:供養）
-    // const badges = {
-    //     1: "https://img.shields.io/badge/status-idea-informational.svg?style=for-the-badge",
-    //     2: "https://img.shields.io/badge/status-developing-important.svg?style=for-the-badge"
-    // }
-
-    if (status < 1 || 5 < status) {
-        return (<Chip label="Error" color="error" />)
-    }
-
-    const chips = {
-        1: (<Chip label="Idea" color="primary" size="small" />),
-        2: (<Chip label="Developing" color="success" size="small" />),
-        3: (<Chip label="Completed" color="info" size="small" />),
-        4: (<Chip label="Memorial" color="secondary" size="small" />),
-    }
+    const chips = [
+        (<Chip label="Idea" color="primary" size="small" />),
+        (<Chip label="Developing" color="success" size="small" />),
+        (<Chip label="Completed" color="info" size="small" />),
+        (<Chip label="Memorial" color="secondary" size="small" />),
+    ]
 
     return chips[status];
-
 }
 
-function MyImageList(props) {
-    const images: String[] = props.images;
+function MyImageList(props: { images: string[] }) {
+    const images: string[] = props.images;
 
     if (images.length <= 1) {
         return (<></>)
     }
 
-    const imageTitle = (name: String) => {
+    const imageTitle = (name: string) => {
         const s = name.split('/');
         return s[s.length - 1]
 
@@ -49,7 +39,7 @@ function MyImageList(props) {
     return (
         <Stack direction="row" spacing={1} justifyContent="center">
             {image_items.map((item) => (
-                <ImageListItem key={item.img}
+                <ImageListItem
                     sx={{
                         height: 128,
                     }}>
@@ -66,15 +56,26 @@ function MyImageList(props) {
 }
 
 
-function PrototypeCard(props) {
-    const name: String = props.name; //prototypeNm
-    const summary: String = props.summary;
+function PrototypeCard(props: {
+    name: string,
+    summary: string,
+    developing_status: number,
+    images: string[],
+    developer: string,
+    team: string,
+    tags: string[],
+    materials: string[],
+    prototype_id: number,
+    fetchHandle: (data: any) => void
+}) {
+    const name: string = props.name; //prototypeNm
+    const summary: string = props.summary;
     const developing_status: number = props.developing_status;
-    const images: String[] = props.images;
-    const developer: String = props.developer;
-    const team: String = props.team;
-    const tags: String[] = props.tags;
-    const materials: String[] = props.materials;
+    const images: string[] = props.images;
+    const developer: string = props.developer;
+    const team: string = props.team;
+    const tags: string[] = props.tags;
+    const materials: string[] = props.materials;
     const prototype_id = props.prototype_id;
 
     const fetchHandle = props.fetchHandle;

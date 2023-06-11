@@ -17,10 +17,24 @@ class App extends Component {
     team: "BotaLab",
     materials: ["M5Stack"],
     tags: ["tail", "doll"],
-    prototype_id: '2385'
+    prototype_id: 2385
   }
 
-  handleStateChange = (data) => {
+  handleStateChange = (data: {
+    image1: string,
+    image2: string,
+    image3: string,
+    image4: string,
+    image5: string,
+    prototypeNm: string,
+    status: number,
+    summary: string,
+    userNm: string,
+    teamNm: string,
+    materialNm: string,
+    tags: string,
+    id: number
+  }) => {
     const images_ref = [
       data.image1, data.image2, data.image3, data.image4, data.image5
     ]

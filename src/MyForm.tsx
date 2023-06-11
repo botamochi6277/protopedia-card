@@ -15,7 +15,12 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import axios from 'axios';
 
-function MyForm(props) {
+
+type MyFormProps = {
+    fetchHandle: (data: any) => void,
+};
+
+function MyForm(props: MyFormProps) {
 
     const [access_token, setAccessToken] = useState('');
     const [token_error, setTokenError] = useState(false);
@@ -27,7 +32,7 @@ function MyForm(props) {
 
     const fetchHandle = props.fetchHandle;
 
-    const fetchProjectData = (token: String, prototype_id: String) => {
+    const fetchProjectData = (token: string, prototype_id: string) => {
         // input validation
         const token_ref = token.match(/[a-f0-9]{32}/g);
         if (!token_ref) {
