@@ -8,14 +8,16 @@ import PrototypeCard from './PrototypeCard'
 
 class App extends Component {
 
+  // initial state
   state = {
     name: "Long Tail Whale",
     developing_status: 2,
     images: ["https://protopedia.net/pic/9eabe827-d5dd-4297-bb5b-504f81722725.png", "https://protopedia.net/pic/9eabe827-d5dd-4297-bb5b-504f81722725.png"],
     summary: "Long Tail Whale Robot with M5Atom inspired Qoobo.ユカイ工学のQooboに触発されて開発したしっぽロボットのクジラ版",
-    developer: "botamochi",
-    material: "M5Stack",
-    tags: []
+    developer: "botamochi6277",
+    team: "BotaLab",
+    materials: ["M5Stack"],
+    tags: ["tail", "doll"]
   }
 
   handleStateChange = (data) => {
@@ -29,7 +31,8 @@ class App extends Component {
       images: images,
       summary: data.summary,
       developer: data.userNm,
-      material: data.materialNm,
+      team: data.teamNm,
+      materials: data.materialNm.split(','),
       tags: data.tags.split(',')
     })
   }
@@ -46,6 +49,9 @@ class App extends Component {
             images={this.state.images}
             summary={this.state.summary}
             developer={this.state.developer}
+            team={this.state.team}
+            materials={this.state.materials}
+            tags={this.state.tags}
           />
         </Container>
       </>
