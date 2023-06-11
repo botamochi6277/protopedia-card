@@ -66,7 +66,6 @@ function MyImageList(props) {
 }
 
 
-
 function PrototypeCard(props) {
     const name: String = props.name; //prototypeNm
     const summary: String = props.summary;
@@ -125,10 +124,10 @@ function PrototypeCard(props) {
             </CardContent>
 
             <CardActions>
-                {material_chips}
-            </CardActions>
-            <CardActions>
-                {tag_chips}
+                <Stack direction="row" useFlexGap flexWrap="wrap" spacing={1}>
+                    {material_chips}
+                    {tag_chips}
+                </Stack>
             </CardActions>
         </Card>
     )
