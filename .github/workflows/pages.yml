@@ -6,7 +6,7 @@ on:
 jobs:
   paging_jobs:
     runs-on: ubuntu-latest
-    name: A job to draw lbr design
+    name: build page and deploy
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -25,7 +25,7 @@ jobs:
       - name: Commit and push files
         run: |
           git checkout -b gh-pages
-          mv ./build ./docs
+          mv ./dist ./docs
           git add ./docs
           git commit -m "build pages" -a
           git push origin HEAD:gh-pages --force
