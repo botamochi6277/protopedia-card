@@ -12,19 +12,22 @@ import UpdateIcon from '@mui/icons-material/Update';
 import TokenIcon from '@mui/icons-material/Token';
 import axios from 'axios';
 
-function MyForm() {
+function MyForm(props) {
 
     const [access_token, setAccessToken] = useState('abcd')
 
     const [project_id, setProjectId] = useState('2385')
+
+    const fetchHandle = props.fetchHandle;
 
     const fetchProjectData = (token: String, prototype_id: String) => {
 
         const url = `https://protopedia.net/api/prototypes.json?token=${token}&prototypeId=${prototype_id}`
         axios.get(url).then((res) => {
             console.log(res);
+            fetchHandle(res.data[0]);
         }).catch((error) => {
-            console.log(error)
+            console.log(error);
         })
     }
 
