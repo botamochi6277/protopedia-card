@@ -1,4 +1,4 @@
-name: A job to build and deploy page
+name: jobs to build and deploy page
 on:
   push:
     branches: [main]
@@ -9,23 +9,13 @@ jobs:
     name: build page and deploy
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: build pages
         run: |
           npm install
           npm run build
-      - name: git setting
-        env:
-          GITHUB_USER: ${{ secrets.GITHUB_USER }}
-        run: |
-          git config --local user.email "action_runner@users.noreply.github.com"
-          git config --local user.name "action runner"
-      - name: remove ignore to push build
-        run: rm .gitignore
-      - name: Commit and push files
-        run: |
-          git checkout -b gh-pages
-          mv ./dist ./docs
-          git add ./docs
-          git commit -m "build pages" -a
-          git push origin HEAD:gh-pages --force
+      - name: Deploy pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: "dist"
