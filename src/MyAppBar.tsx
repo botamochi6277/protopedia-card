@@ -186,7 +186,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 const MyAppBar = (props: MyFormProps) => {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);// default open
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -253,29 +253,9 @@ const MyAppBar = (props: MyFormProps) => {
             <MyForm fetchDataHandle={props.fetchDataHandle} />
 
           </ListItem>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
         </List>
         <Divider />
         <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
         </List>
       </Drawer>
       <Main open={open}>
