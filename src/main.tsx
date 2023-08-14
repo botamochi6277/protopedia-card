@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { createRoot } from 'react-dom/client';
+import { Helmet, HelmetProvider } from 'react-helmet-async'
 
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles';
@@ -7,17 +8,22 @@ import { ThemeProvider } from '@mui/material/styles';
 import App from './App.tsx'
 import theme from './theme';
 
-const rootElement = document.getElementById('root');
+const rootElement = document.querySelector('#root');
 
 if (rootElement) {
   const root = createRoot(rootElement);
   root.render(
     <React.StrictMode>
-      <ThemeProvider theme={theme}>
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-        <CssBaseline />
-        <App />
-      </ThemeProvider>
+      <HelmetProvider>
+        <Helmet>
+          <title>ProtoPedia Card</title>
+        </Helmet>
+        <ThemeProvider theme={theme}>
+          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+          <CssBaseline />
+          <App />
+        </ThemeProvider>
+      </HelmetProvider>
     </React.StrictMode>
   );
 }
