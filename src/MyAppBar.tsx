@@ -20,7 +20,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import Dialog from '@mui/material/Dialog';
+
 
 import Drawer from '@mui/material/Drawer';
 
@@ -244,8 +244,15 @@ const MyAppBar = (props: MyFormProps) => {
         </DrawerHeader>
         <Divider />
 
-        <MyForm fetchDataHandle={props.fetchDataHandle} />
         <List>
+          <ListItem key="fetch data item" disablePadding>
+
+            <ListItemIcon>
+              <InboxIcon />
+            </ListItemIcon>
+            <MyForm fetchDataHandle={props.fetchDataHandle} />
+
+          </ListItem>
           {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>

@@ -3,11 +3,22 @@ import { useState } from 'react'
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 
+// dialog
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
+// icons
 import UpdateIcon from '@mui/icons-material/Update';
+import HelpIcon from '@mui/icons-material/Help';
+import CloseIcon from '@mui/icons-material/Close';
 
 import axios from 'axios';
 
@@ -60,14 +71,57 @@ function MyForm(props: MyFormProps) {
         })
     }
 
+    const [is_dialog_open, setDialogOpen] = useState(false);
+
+    const handleClickOpen = () => {
+        setDialogOpen(true);
+    };
+
+    const handleClose = () => {
+        setDialogOpen(false);
+    };
+
+    const HelpDialog = () => {
+        return (
+            <Dialog open={is_dialog_open} onClose={handleClose}>
+                <DialogTitle id="alert-dialog-title">
+                    {"API Access Token & Prototype ID"}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description1">
+                        The access token is necessary to connect to ProtoPedia API.
+                        You can get it from <Link href='https://protopedia.net/settings/application' target='_blank' >the personal setting page</Link>.
+                    </DialogContentText>
+                    <DialogContentText id="alert-dialog-description2">
+
+                        You can get prototype id from a prototype page's url:
+
+                        <Typography sx={{ fontFamily: 'monospace' }}>
+                            {"https://protopedia.net/prototype/${prototype_id}"}
+                        </Typography>
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button variant="contained" onClick={handleClose} startIcon={<CloseIcon />}>Close</Button>
+                </DialogActions>
+            </Dialog>
+        )
+    }
+
     return (
         <Box sx={{ displayPrint: 'none' }}>
-            <Typography variant="h6" component="div" gutterBottom>
+            <Typography component="div" gutterBottom>
                 Access Data Form
+
+                <IconButton aria-label="help"
+                    onClick={handleClickOpen}>
+                    <HelpIcon />
+                </IconButton>
+                <HelpDialog />
             </Typography>
             <Stack
                 direction={{ xs: 'column', sm: 'row' }}
-                spacing={{ xs: 1, sm: 2, md: 4 }}
+                spacing={{ xs: 1 }}
                 alignItems="center"
             >
                 <TextField
@@ -102,16 +156,6 @@ function MyForm(props: MyFormProps) {
                 </Button>
 
             </Stack>
-
-            <Typography>
-                You can get <Link href='https://protopedia.net/settings/application' target='_blank' >access token</Link> from ProtoPedia Page.
-            </Typography>
-            <Typography>
-                You can get prototype id from a prototype page's url:
-            </Typography>
-            <Typography sx={{ fontFamily: 'monospace' }}>
-                {"https://protopedia.net/prototype/${prototype_id}"}
-            </Typography>
         </Box>
     )
 }
