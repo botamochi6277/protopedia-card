@@ -4,7 +4,6 @@ import { Container } from '@mui/material'
 
 import PrototypeCard from './PrototypeCard'
 
-
 class App extends Component {
 
   // initial state
@@ -58,6 +57,8 @@ class App extends Component {
     return (
       <>
         <Container maxWidth="sm">
+          {/* AppBar, ToolBar, Temporary drawer */}
+          {/* <MyAppBar fetchDataHandle={this.handleStateChange} /> */}
           <PrototypeCard
             name={this.state.name}
             developing_status={this.state.developing_status}

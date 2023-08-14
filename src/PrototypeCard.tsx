@@ -1,8 +1,8 @@
 import { Typography, Card, CardContent, CardMedia, Chip, CardActions, Stack, Link } from "@mui/material";
 
 import ImageListItem from '@mui/material/ImageListItem';
-import MyForm from './MyForm'
 
+import MyAppBar from "./MyAppBar";
 const DevelopingStatusChip = (props: { status: number }) => {
     const status = props.status - 1;
 
@@ -85,7 +85,8 @@ function PrototypeCard(props: {
     const url = `https://protopedia.net/prototype/${prototype_id}`;
     return (
         <Card variant="outlined">
-            <MyForm fetchHandle={fetchHandle} />
+            {/* <MyForm fetchHandle={fetchHandle} /> */}
+            <MyAppBar fetchDataHandle={fetchHandle} />
 
             <CardMedia
                 component="img"
