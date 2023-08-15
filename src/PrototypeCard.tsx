@@ -91,7 +91,9 @@ function PrototypeCard(props: {
     return (
         <Card variant="outlined">
             {/* <MyForm fetchHandle={fetchHandle} /> */}
-            <MyAppBar fetchDataHandle={fetchHandle}
+            <MyAppBar
+                fetchDataHandle={fetchHandle}
+                qrcode_visibility={qrcode_visibility}
                 qrcodeHandle={(v: boolean) => { setQRcodeVisibility(v); }}
             />
 
