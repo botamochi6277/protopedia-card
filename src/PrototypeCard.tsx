@@ -110,7 +110,7 @@ function PrototypeCard(props: {
 
 
                 <Typography gutterBottom variant="subtitle1" color="text.secondary">
-                    {prototype_data.team}/{prototype_data.developer}
+                    {prototype_data.team ? `${prototype_data.team}/` : ""}{prototype_data.developer}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                     {prototype_data.summary}

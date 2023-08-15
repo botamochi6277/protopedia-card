@@ -139,15 +139,16 @@ const MyAppBar = (props: MyFormProps) => {
             </ListItemIcon>
             <MyForm fetchDataHandle={props.fetchDataHandle} />
           </ListItem>
+        </List>
+        <Divider />
+        <List>
           <ListItem>
             <ListItemIcon>
               <QrCodeIcon />
             </ListItemIcon>
-            <FormControlLabel control={<Switch checked={qrcode_checked} onChange={qrcodeSwitchHandleChange} />} label="QR Code" />
+            <FormControlLabel
+              control={<Switch checked={qrcode_checked} onChange={qrcodeSwitchHandleChange} />} label="QR Code" />
           </ListItem>
-        </List>
-        <Divider />
-        <List>
         </List>
       </Drawer>
       <Main open={open}>
