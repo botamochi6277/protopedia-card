@@ -1,3 +1,4 @@
+import * as React from 'react'
 import { Typography, Card, CardContent, CardMedia, Chip, CardActions, Stack, Link } from "@mui/material";
 
 import ImageListItem from '@mui/material/ImageListItem';
@@ -63,17 +64,36 @@ function PrototypeCard(props: {
     prototypeData: PrototypeData,
     fetchHandle: (data: any) => void
 }) {
-    const prototype_data = props.prototypeData;
 
+    const [qrcode_visibility, setQRcodeVisibility] = React.useState(true);// default show
+
+    const prototype_data = props.prototypeData;
     const fetchHandle = props.fetchHandle;
     const material_chips = prototype_data.materials.map((material) => <Chip label={material} color="info" key={`material-${material}`} />)
     const tag_chips = prototype_data.tags.map((tag) => <Chip label={tag} key={`tag-${tag}`} />)
 
     const url = `https://protopedia.net/prototype/${prototype_data.prototype_id}`;
+
+    const QrcodeBlock = () => {
+        return (
+            <Stack alignItems="center" spacing={2}>
+                <img src={`https://api.qrserver.com/v1/create-qr-code/?data=https://protopedia.net/prototype/${prototype_data.prototype_id}&size=128x128&format=svg`} alt="QR code" />
+                <Typography sx={{ fontFamily: 'monospace' }}>
+                    <Link href={url}>
+                        {url}
+                    </Link>
+                </Typography>
+            </Stack>
+        );
+    }
+
+
     return (
         <Card variant="outlined">
             {/* <MyForm fetchHandle={fetchHandle} /> */}
-            <MyAppBar fetchDataHandle={fetchHandle} />
+            <MyAppBar fetchDataHandle={fetchHandle}
+                qrcodeHandle={(v: boolean) => { setQRcodeVisibility(v); }}
+            />
 
             <CardMedia
                 component="img"
@@ -101,15 +121,8 @@ function PrototypeCard(props: {
                 <MyImageList images={prototype_data.images.slice(1, 5)} />
             </CardContent>
 
-            <CardContent>
-                <Stack alignItems="center" spacing={2}>
-                    <img src={`https://api.qrserver.com/v1/create-qr-code/?data=https://protopedia.net/prototype/${prototype_data.prototype_id}&size=128x128&format=svg`} alt="QR code" />
-                    <Typography sx={{ fontFamily: 'monospace' }}>
-                        <Link href={url}>
-                            {url}
-                        </Link>
-                    </Typography>
-                </Stack>
+            <CardContent sx={{ display: qrcode_visibility ? 'block' : "none" }}>
+                <QrcodeBlock />
             </CardContent>
 
             <CardActions>

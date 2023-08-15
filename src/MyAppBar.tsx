@@ -30,6 +30,7 @@ import MyForm from './MyForm'
 
 type MyFormProps = {
   fetchDataHandle: (data: any) => void,
+  qrcodeHandle: (b: boolean) => void
 };
 
 
@@ -73,6 +74,13 @@ const MyAppBar = (props: MyFormProps) => {
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const [qrcode_checked, setQrcodeChecked] = React.useState(true);
+
+  const qrcodeSwitchHandleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setQrcodeChecked(event.target.checked);
+    props.qrcodeHandle(event.target.checked);
   };
 
   return (
@@ -135,7 +143,7 @@ const MyAppBar = (props: MyFormProps) => {
             <ListItemIcon>
               <QrCodeIcon />
             </ListItemIcon>
-            <FormControlLabel control={<Switch defaultChecked />} label="QR Code" />
+            <FormControlLabel control={<Switch checked={qrcode_checked} onChange={qrcodeSwitchHandleChange} />} label="QR Code" />
           </ListItem>
         </List>
         <Divider />
