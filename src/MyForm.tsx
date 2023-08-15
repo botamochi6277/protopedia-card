@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import * as React from 'react'
 
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
@@ -28,14 +28,23 @@ type MyFormProps = {
 };
 
 function MyForm(props: MyFormProps) {
+    const [access_token, setAccessToken] = React.useState(
+        localStorage.getItem("api_token") ?? ""
+    );
 
-    const [access_token, setAccessToken] = useState('');
-    const [token_error, setTokenError] = useState(false);
-    const [token_help, setTokenHelp] = useState('');
+    React.useEffect(
+        () => {
+            localStorage.setItem('api_token', access_token);
+        },
+        [access_token]
+    )
 
-    const [prototype_id, setProtoTypeId] = useState('2385');
-    const [prototype_id_error, setPrototypeIdError] = useState(false);
-    const [prototype_id_help, setPrototypeIdHelp] = useState('');
+    const [token_error, setTokenError] = React.useState(false);
+    const [token_help, setTokenHelp] = React.useState('');
+
+    const [prototype_id, setProtoTypeId] = React.useState('2385');
+    const [prototype_id_error, setPrototypeIdError] = React.useState(false);
+    const [prototype_id_help, setPrototypeIdHelp] = React.useState('');
 
     const fetchDataHandle = props.fetchDataHandle;
 
@@ -71,7 +80,7 @@ function MyForm(props: MyFormProps) {
         })
     }
 
-    const [is_dialog_open, setDialogOpen] = useState(false);
+    const [is_dialog_open, setDialogOpen] = React.useState(false);
 
     const handleClickOpen = () => {
         setDialogOpen(true);
