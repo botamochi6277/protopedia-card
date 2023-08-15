@@ -24,6 +24,7 @@ import UpdateIcon from '@mui/icons-material/Update';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import QrCodeIcon from '@mui/icons-material/QrCode';
+import ImageIcon from '@mui/icons-material/Image';
 
 // custom
 import MyForm from './MyForm'
@@ -31,7 +32,9 @@ import MyForm from './MyForm'
 type MyFormProps = {
   fetchDataHandle: (data: any) => void,
   qrcode_visibility: boolean,
-  qrcodeHandle: (b: boolean) => void
+  qrcodeHandle: (b: boolean) => void,
+  imgs_visibility: boolean[]
+  imgVisibilityHandle: (b: boolean[]) => void,
 };
 
 
@@ -77,10 +80,15 @@ const MyAppBar = (props: MyFormProps) => {
     setOpen(false);
   };
 
+  const handleImgChange = (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
+    let new_array = props.imgs_visibility.concat();
+    new_array[index] = event.target.checked;
+    props.imgVisibilityHandle(new_array);
+  };
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      {/* <AppBar position="static" open={open}> */}
       <AppBar position="static">
         <Toolbar>
           <IconButton
@@ -136,6 +144,25 @@ const MyAppBar = (props: MyFormProps) => {
         </List>
         <Divider />
         <List>
+          {
+            props.imgs_visibility.map((img, i) => {
+              return (
+                <ListItem key={`img-${img}-${i}`}>
+                  <ListItemIcon>
+                    <ImageIcon />
+                  </ListItemIcon>
+                  <FormControlLabel
+                    control={<Switch
+                      checked={props.imgs_visibility[i]}
+                      onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                        handleImgChange(event, i);
+                      }}
+                    />}
+
+                    label={(i == 0) ? "Featured image" : `Image-${i}`} />
+                </ListItem>)
+            })
+          }
           <ListItem>
             <ListItemIcon>
               <QrCodeIcon />

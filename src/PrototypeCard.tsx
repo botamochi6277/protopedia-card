@@ -21,36 +21,36 @@ const DevelopingStatusChip = (props: { status: number }) => {
     return chips[status];
 }
 
-function MyImageList(props: { images: string[] }) {
+function MyImageList(props: { images: string[], visible: boolean[] }) {
     const images: string[] = props.images;
 
-    if (images.length <= 1) {
+    if (images.length < 1) {
         return (<></>)
     }
 
     const imageTitle = (name: string) => {
         const s = name.split('/');
         return s[s.length - 1]
-
-    }
+    };
 
     const image_items = images.map(
-        (img) => {
-            return { img: img, title: imageTitle(img) }
+        (img, i) => {
+            return props.visible[i] ? { img: img, title: imageTitle(img) } : undefined;
         }
-    )
+    ).filter(e => e);
 
     return (
         <Stack direction="row" spacing={1} justifyContent="center">
-            {image_items.map((item) => (
+            {image_items.map((item, i) => (
                 <ImageListItem
                     sx={{
                         height: 128,
-                    }}>
+                    }}
+                    key={`list-img-item-${i + 1}`}>
                     <img
-                        src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-                        srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                        alt={item.title}
+                        src={`${item?.img}?w=164&h=164&fit=crop&auto=format`}
+                        srcSet={`${item?.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                        alt={item?.title}
                         loading="lazy"
                     />
                 </ImageListItem>
@@ -64,10 +64,19 @@ function PrototypeCard(props: {
     prototypeData: PrototypeData,
     fetchHandle: (data: any) => void
 }) {
-
     const [qrcode_visibility, setQRcodeVisibility] = React.useState(true);// default show
 
     const prototype_data = props.prototypeData;
+    const [imgs_visibility, setImgsVisibility] = React.useState(
+        prototype_data.images.map((img) => img ? true : false)
+    );
+
+    React.useEffect(() => {
+        setImgsVisibility(
+            prototype_data.images.map((img) => img ? true : false)
+        );
+    }, [props.prototypeData]);
+
     const fetchHandle = props.fetchHandle;
     const material_chips = prototype_data.materials.map((material) => <Chip label={material} color="info" key={`material-${material}`} />)
     const tag_chips = prototype_data.tags.map((tag) => <Chip label={tag} key={`tag-${tag}`} />)
@@ -90,17 +99,19 @@ function PrototypeCard(props: {
 
     return (
         <Card variant="outlined">
-            {/* <MyForm fetchHandle={fetchHandle} /> */}
             <MyAppBar
                 fetchDataHandle={fetchHandle}
                 qrcode_visibility={qrcode_visibility}
                 qrcodeHandle={(v: boolean) => { setQRcodeVisibility(v); }}
+                imgs_visibility={imgs_visibility}
+                imgVisibilityHandle={(v: boolean[]) => { setImgsVisibility(v); }}
             />
 
             <CardMedia
                 component="img"
                 image={prototype_data.images[0]}
                 title="featured image"
+                sx={{ display: (imgs_visibility.length > 0 && imgs_visibility[0]) ? 'block' : "none" }}
             />
             <CardContent>
 
@@ -120,7 +131,8 @@ function PrototypeCard(props: {
             </CardContent>
 
             <CardContent>
-                <MyImageList images={prototype_data.images.slice(1, 5)} />
+                <MyImageList images={prototype_data.images.slice(1, 5)}
+                    visible={imgs_visibility.slice(1, 5)} />
             </CardContent>
 
             <CardContent sx={{ display: qrcode_visibility ? 'block' : "none" }}>
