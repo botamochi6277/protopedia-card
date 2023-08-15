@@ -3,6 +3,9 @@ import { Typography, Card, CardContent, CardMedia, Chip, CardActions, Stack, Lin
 import ImageListItem from '@mui/material/ImageListItem';
 
 import MyAppBar from "./MyAppBar";
+
+
+
 const DevelopingStatusChip = (props: { status: number }) => {
     const status = props.status - 1;
 
@@ -57,32 +60,16 @@ function MyImageList(props: { images: string[] }) {
 
 
 function PrototypeCard(props: {
-    name: string,
-    summary: string,
-    developing_status: number,
-    images: string[],
-    developer: string,
-    team: string,
-    tags: string[],
-    materials: string[],
-    prototype_id: number,
+    prototypeData: PrototypeData,
     fetchHandle: (data: any) => void
 }) {
-    const name: string = props.name; //prototypeNm
-    const summary: string = props.summary;
-    const developing_status: number = props.developing_status;
-    const images: string[] = props.images;
-    const developer: string = props.developer;
-    const team: string = props.team;
-    const tags: string[] = props.tags;
-    const materials: string[] = props.materials;
-    const prototype_id = props.prototype_id;
+    const prototype_data = props.prototypeData;
 
     const fetchHandle = props.fetchHandle;
-    const material_chips = materials.map((material) => <Chip label={material} color="info" key={`material-${material}`} />)
-    const tag_chips = tags.map((tag) => <Chip label={tag} key={`tag-${tag}`} />)
+    const material_chips = prototype_data.materials.map((material) => <Chip label={material} color="info" key={`material-${material}`} />)
+    const tag_chips = prototype_data.tags.map((tag) => <Chip label={tag} key={`tag-${tag}`} />)
 
-    const url = `https://protopedia.net/prototype/${prototype_id}`;
+    const url = `https://protopedia.net/prototype/${prototype_data.prototype_id}`;
     return (
         <Card variant="outlined">
             {/* <MyForm fetchHandle={fetchHandle} /> */}
@@ -90,33 +77,33 @@ function PrototypeCard(props: {
 
             <CardMedia
                 component="img"
-                image={images[0]}
+                image={prototype_data.images[0]}
                 title="featured image"
             />
             <CardContent>
 
                 <Stack direction="row" alignItems="center" spacing={2}>
                     <Typography variant="h5" component="div">
-                        {name}</Typography>
-                    <DevelopingStatusChip status={developing_status}></DevelopingStatusChip>
+                        {prototype_data.name}</Typography>
+                    <DevelopingStatusChip status={prototype_data.developing_status}></DevelopingStatusChip>
                 </Stack>
 
 
                 <Typography gutterBottom variant="subtitle1" color="text.secondary">
-                    {team}/{developer}
+                    {prototype_data.team}/{prototype_data.developer}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    {summary}
+                    {prototype_data.summary}
                 </Typography>
             </CardContent>
 
             <CardContent>
-                <MyImageList images={images.slice(1, 5)} />
+                <MyImageList images={prototype_data.images.slice(1, 5)} />
             </CardContent>
 
             <CardContent>
                 <Stack alignItems="center" spacing={2}>
-                    <img src={`https://api.qrserver.com/v1/create-qr-code/?data=https://protopedia.net/prototype/${prototype_id}&size=128x128&format=svg`} alt="QR code" />
+                    <img src={`https://api.qrserver.com/v1/create-qr-code/?data=https://protopedia.net/prototype/${prototype_data.prototype_id}&size=128x128&format=svg`} alt="QR code" />
                     <Typography sx={{ fontFamily: 'monospace' }}>
                         <Link href={url}>
                             {url}

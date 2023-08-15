@@ -4,10 +4,11 @@ import { Container } from '@mui/material'
 
 import PrototypeCard from './PrototypeCard'
 
+
 class App extends Component {
 
   // initial state
-  state = {
+  prototype_data: PrototypeData = {
     name: "Long Tail Whale",
     developing_status: 2,
     images: ["https://protopedia.net/pic/9eabe827-d5dd-4297-bb5b-504f81722725.png"],
@@ -17,6 +18,10 @@ class App extends Component {
     materials: ["M5Stack"],
     tags: ["tail", "doll"],
     prototype_id: 2385
+  };
+
+  state = {
+    prototype_data: this.prototype_data,
   }
 
   handleStateChange = (data: {
@@ -39,8 +44,7 @@ class App extends Component {
     ]
 
     const images = images_ref.filter((im) => im); // remove null
-
-    this.setState({
+    const proto: PrototypeData = {
       name: data.prototypeNm,
       developing_status: data.status,
       images: images,
@@ -50,25 +54,16 @@ class App extends Component {
       materials: data.materialNm.split(','),
       tags: data.tags.split(','),
       prototype_id: data.id
-    })
+    }
+    this.setState({ prototype_data: proto })
   }
 
   render() {
     return (
       <>
         <Container maxWidth="sm">
-          {/* AppBar, ToolBar, Temporary drawer */}
-          {/* <MyAppBar fetchDataHandle={this.handleStateChange} /> */}
           <PrototypeCard
-            name={this.state.name}
-            developing_status={this.state.developing_status}
-            images={this.state.images}
-            summary={this.state.summary}
-            developer={this.state.developer}
-            team={this.state.team}
-            materials={this.state.materials}
-            tags={this.state.tags}
-            prototype_id={this.state.prototype_id}
+            prototypeData={this.state.prototype_data}
             fetchHandle={this.handleStateChange}
           />
         </Container>

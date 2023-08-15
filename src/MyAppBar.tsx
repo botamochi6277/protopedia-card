@@ -7,6 +7,8 @@ import AppBar from "@mui/material/AppBar";
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import Typography from '@mui/material/Typography';
 
 import Drawer from '@mui/material/Drawer';
@@ -21,6 +23,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import UpdateIcon from '@mui/icons-material/Update';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import QrCodeIcon from '@mui/icons-material/QrCode';
 
 // custom
 import MyForm from './MyForm'
@@ -114,6 +117,7 @@ const MyAppBar = (props: MyFormProps) => {
         open={open}
       >
         <DrawerHeader>
+          Config
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
@@ -121,13 +125,17 @@ const MyAppBar = (props: MyFormProps) => {
         <Divider />
 
         <List>
-          <ListItem key="fetch data item" disablePadding>
-
+          <ListItem key="fetch data item">
             <ListItemIcon>
               <UpdateIcon />
             </ListItemIcon>
             <MyForm fetchDataHandle={props.fetchDataHandle} />
-
+          </ListItem>
+          <ListItem>
+            <ListItemIcon>
+              <QrCodeIcon />
+            </ListItemIcon>
+            <FormControlLabel control={<Switch defaultChecked />} label="QR Code" />
           </ListItem>
         </List>
         <Divider />
