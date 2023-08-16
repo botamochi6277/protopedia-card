@@ -25,7 +25,6 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import QrCodeIcon from '@mui/icons-material/QrCode';
 import ImageIcon from '@mui/icons-material/Image';
-import CameraIcon from '@mui/icons-material/Camera';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import NoPhotographyIcon from '@mui/icons-material/NoPhotography';
 import DoNotTouchIcon from '@mui/icons-material/DoNotTouch';
