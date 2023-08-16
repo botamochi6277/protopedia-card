@@ -9,15 +9,15 @@ class App extends Component {
 
   // initial state
   prototype_data: PrototypeData = {
-    name: "Long Tail Whale",
-    developing_status: 2,
-    images: ["https://protopedia.net/pic/9eabe827-d5dd-4297-bb5b-504f81722725.png"],
-    summary: "Long Tail Whale Robot with M5Atom inspired Qoobo.ユカイ工学のQooboに触発されて開発したしっぽロボットのクジラ版",
+    name: "ｽﾀﾝﾃﾞｨﾝｸﾞ ｽﾀｯｸﾁｬﾝ",
+    developing_status: 3,
+    images: ["https://protopedia.net/pic/d20b6eb0-de41-494e-b54a-983691e9957b.png"],
+    summary: "飛べる！踊れる！ｽﾀｯｸﾁｬﾝ!! なｽﾀｯｸﾁｬﾝのフィギュアです. The action figure of stackchan can pose flying, dancing, etc.",
     developer: "botamochi6277",
     team: "BotaLab",
-    materials: ["M5Stack"],
-    tags: ["tail", "doll"],
-    prototype_id: 2385
+    materials: ["M5Stack Core 2"],
+    tags: ["3D Printer", "action figure"],
+    prototype_id: 4203
   };
 
   state = {
