@@ -2,9 +2,12 @@ import * as React from 'react'
 import { Typography, Card, CardContent, CardMedia, Chip, CardActions, Stack, Link } from "@mui/material";
 
 import ImageListItem from '@mui/material/ImageListItem';
-
+import { styled } from '@mui/system';
 import MyAppBar from "./MyAppBar";
 
+import PhotographyImgUrl from "/photography.svg"
+import NoPhotographyImgUrl from "/no-photography.svg"
+import DoNotTouchImgUrl from "/do-not-touch.svg"
 
 
 const DevelopingStatusChip = (props: { status: number }) => {
@@ -20,6 +23,17 @@ const DevelopingStatusChip = (props: { status: number }) => {
 
     return chips[status];
 }
+
+
+const CardContentNoPadding = styled(CardContent)(`
+    padding-left: 1;
+    padding-right: 1;  
+    padding-top: 0;
+    padding-bottom: 0;
+    &:last-child {
+        padding-bottom: 0;
+    }
+`);
 
 function MyImageList(props: { images: string[], visible: boolean[] }) {
     const images: string[] = props.images;
@@ -64,7 +78,11 @@ function PrototypeCard(props: {
     prototypeData: PrototypeData,
     fetchHandle: (data: any) => void
 }) {
+    // notification card
     const [qrcode_visibility, setQRcodeVisibility] = React.useState(true);// default show
+    const [photo_sign_visibility, setPhotoSignVisibility] = React.useState(false);
+    const [no_photo_sign_visibility, setNoPhotoSignVisibility] = React.useState(false);
+    const [dont_tough_sign_visibility, setDontTouchSignVisibility] = React.useState(false);
 
     const prototype_data = props.prototypeData;
     const [imgs_visibility, setImgsVisibility] = React.useState(
@@ -81,30 +99,48 @@ function PrototypeCard(props: {
     const material_chips = prototype_data.materials.map((material) => <Chip label={material} color="info" key={`material-${material}`} />)
     const tag_chips = prototype_data.tags.map((tag) => <Chip label={tag} key={`tag-${tag}`} />)
 
-    const url = `https://protopedia.net/prototype/${prototype_data.prototype_id}`;
 
-    const QrcodeBlock = () => {
-        return (
-            <Stack alignItems="center" spacing={2}>
-                <img src={`https://api.qrserver.com/v1/create-qr-code/?data=https://protopedia.net/prototype/${prototype_data.prototype_id}&size=128x128&format=svg`} alt="QR code" />
-                <Typography sx={{ fontFamily: 'monospace' }}>
-                    <Link href={url}>
-                        {url}
-                    </Link>
-                </Typography>
-            </Stack>
-        );
-    }
-
+    const sign_items = [
+        {
+            name: "qrcode",
+            image: `https://api.qrserver.com/v1/create-qr-code/?data=https://protopedia.net/prototype/${prototype_data.prototype_id}&size=128x128&format=svg&color=1e1e1e&qzone=2`,
+            text: "Read More",
+            visible: qrcode_visibility
+        },
+        {
+            name: "welcome-to-taking-photo",
+            image: PhotographyImgUrl,
+            text: "Cameras Allowed",
+            visible: photo_sign_visibility
+        },
+        {
+            name: "no-photography",
+            image: NoPhotographyImgUrl,
+            text: "No Photography",
+            visible: no_photo_sign_visibility
+        },
+        {
+            name: "do-not-touch",
+            image: DoNotTouchImgUrl,
+            text: "Do Not Touch",
+            visible: dont_tough_sign_visibility
+        },
+    ]
 
     return (
         <Card variant="outlined">
             <MyAppBar
                 fetchDataHandle={fetchHandle}
-                qrcode_visibility={qrcode_visibility}
-                qrcodeHandle={(v: boolean) => { setQRcodeVisibility(v); }}
                 imgs_visibility={imgs_visibility}
                 imgVisibilityHandle={(v: boolean[]) => { setImgsVisibility(v); }}
+                qrcode_visibility={qrcode_visibility}
+                qrcodeHandle={(v: boolean) => { setQRcodeVisibility(v); }}
+                photo_sign_visibility={photo_sign_visibility}
+                photoSignHandle={(v: boolean) => { setPhotoSignVisibility(v); }}
+                no_photo_sign_visibility={no_photo_sign_visibility}
+                noPhotoSignHandle={(v: boolean) => { setNoPhotoSignVisibility(v); }}
+                dont_touch_visibility={dont_tough_sign_visibility}
+                dontTouchHandle={(v: boolean) => { setDontTouchSignVisibility(v); }}
             />
 
             <CardMedia
@@ -121,7 +157,6 @@ function PrototypeCard(props: {
                     <DevelopingStatusChip status={prototype_data.developing_status}></DevelopingStatusChip>
                 </Stack>
 
-
                 <Typography gutterBottom variant="subtitle1" color="text.secondary">
                     {prototype_data.team ? `${prototype_data.team}/` : ""}{prototype_data.developer}
                 </Typography>
@@ -130,13 +165,38 @@ function PrototypeCard(props: {
                 </Typography>
             </CardContent>
 
-            <CardContent>
+            <CardContent sx={{
+                display: imgs_visibility.slice(1, 5).filter((e) => e).length > 0 ? 'block' : "none"
+            }}>
                 <MyImageList images={prototype_data.images.slice(1, 5)}
                     visible={imgs_visibility.slice(1, 5)} />
             </CardContent>
 
-            <CardContent sx={{ display: qrcode_visibility ? 'block' : "none" }}>
-                <QrcodeBlock />
+            <CardContent sx={{ maxHeight: 600 }}>
+                <Stack
+                    direction="row"
+                    alignItems="center"
+                    justifyContent={"space-evenly"} spacing={1} useFlexGap flexWrap="wrap">
+                    {sign_items.map((item) => {
+
+                        return (
+                            <Card variant='outlined'
+                                sx={{ display: item.visible ? 'block' : "none" }}
+                                key={item.name}
+                            >
+                                <CardMedia
+                                    component="img"
+                                    image={item.image}
+                                    height="128"
+                                />
+                                <CardContentNoPadding>
+                                    <Typography textAlign={"center"} variant="body2" color="text.secondary">
+                                        {item.text}
+                                    </Typography>
+                                </CardContentNoPadding>
+                            </Card>)
+                    })}
+                </Stack>
             </CardContent>
 
             <CardActions>

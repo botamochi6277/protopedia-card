@@ -25,16 +25,26 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import QrCodeIcon from '@mui/icons-material/QrCode';
 import ImageIcon from '@mui/icons-material/Image';
+import CameraIcon from '@mui/icons-material/Camera';
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
+import NoPhotographyIcon from '@mui/icons-material/NoPhotography';
+import DoNotTouchIcon from '@mui/icons-material/DoNotTouch';
 
 // custom
 import MyForm from './MyForm'
 
 type MyFormProps = {
   fetchDataHandle: (data: any) => void,
-  qrcode_visibility: boolean,
-  qrcodeHandle: (b: boolean) => void,
   imgs_visibility: boolean[]
   imgVisibilityHandle: (b: boolean[]) => void,
+  qrcode_visibility: boolean,
+  qrcodeHandle: (b: boolean) => void,
+  photo_sign_visibility: boolean,
+  photoSignHandle: (b: boolean) => void,
+  no_photo_sign_visibility: boolean,
+  noPhotoSignHandle: (b: boolean) => void,
+  dont_touch_visibility: boolean,
+  dontTouchHandle: (b: boolean) => void,
 };
 
 
@@ -85,6 +95,33 @@ const MyAppBar = (props: MyFormProps) => {
     new_array[index] = event.target.checked;
     props.imgVisibilityHandle(new_array);
   };
+
+  const sign_items = [
+    {
+      name: "qrcode",
+      icon: <QrCodeIcon />,
+      checked: props.qrcode_visibility,
+      on_change: (event: React.ChangeEvent<HTMLInputElement>) => { props.qrcodeHandle(event.target.checked); }
+    },
+    {
+      name: "camera",
+      icon: <PhotoCameraIcon />,
+      checked: props.photo_sign_visibility,
+      on_change: (event: React.ChangeEvent<HTMLInputElement>) => { props.photoSignHandle(event.target.checked); }
+    },
+    {
+      name: "no photography",
+      icon: <NoPhotographyIcon />,
+      checked: props.no_photo_sign_visibility,
+      on_change: (event: React.ChangeEvent<HTMLInputElement>) => { props.noPhotoSignHandle(event.target.checked); }
+    },
+    {
+      name: "do not touch",
+      icon: <DoNotTouchIcon />,
+      checked: props.dont_touch_visibility,
+      on_change: (event: React.ChangeEvent<HTMLInputElement>) => { props.dontTouchHandle(event.target.checked); }
+    }
+  ]
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -163,17 +200,20 @@ const MyAppBar = (props: MyFormProps) => {
                 </ListItem>)
             })
           }
-          <ListItem>
-            <ListItemIcon>
-              <QrCodeIcon />
-            </ListItemIcon>
-            <FormControlLabel
-              control={<Switch checked={props.qrcode_visibility} onChange={
-                (event: React.ChangeEvent<HTMLInputElement>) => {
-                  props.qrcodeHandle(event.target.checked);
-                }
-              } />} label="QR Code" />
-          </ListItem>
+
+          {sign_items.map(
+            (item) => {
+              return (
+                <ListItem key={item.name}>
+                  <ListItemIcon>
+                    {item.icon}
+                  </ListItemIcon>
+                  <FormControlLabel
+                    control={<Switch checked={item.checked} onChange={item.on_change} />} label={item.name} />
+                </ListItem>
+              )
+            }
+          )}
         </List>
       </Drawer>
       <Main open={open}>
