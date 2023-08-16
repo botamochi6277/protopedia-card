@@ -74,7 +74,10 @@ function MyForm(props: MyFormProps) {
         const url = `https://protopedia.net/api/prototypes.json?token=${token}&prototypeId=${prototype_id}`
         axios.get(url).then((res) => {
             console.debug(res);
-            fetchDataHandle(res.data[0]);
+            // protopedia APIの変な挙動
+            // 登録されているmaterialの数だけprototype_raw dataが返ってくる...ことがある
+            // なんで materialsとかでまとめて返さないのだろうか？？
+            fetchDataHandle(res.data);
         }).catch((error) => {
             console.log(error);
         })

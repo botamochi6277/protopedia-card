@@ -24,36 +24,27 @@ class App extends Component {
     prototype_data: this.prototype_data,
   }
 
-  handleStateChange = (data: {
-    image1: string,
-    image2: string,
-    image3: string,
-    image4: string,
-    image5: string,
-    prototypeNm: string,
-    status: number,
-    summary: string,
-    userNm: string,
-    teamNm: string,
-    materialNm: string,
-    tags: string,
-    id: number
-  }) => {
+  handleStateChange = (data: PrototypeRawData[]) => {
+    if (data.length == 0) {
+      return;
+    }
+    const data0 = data[0];
     const images_ref = [
-      data.image1, data.image2, data.image3, data.image4, data.image5
+      data0.image1, data0.image2, data0.image3, data0.image4, data0.image5
     ]
-
+    // material list with removing overlap values
+    const mat = data.map(d => d.materialNm).filter((elem, index, self) => self.indexOf(elem) === index);
     const images = images_ref.filter((im) => im); // remove null
     const proto: PrototypeData = {
-      name: data.prototypeNm,
-      developing_status: data.status,
+      name: data0.prototypeNm,
+      developing_status: data0.status,
       images: images,
-      summary: data.summary,
-      developer: data.userNm,
-      team: data.teamNm,
-      materials: data.materialNm.split(','),
-      tags: data.tags.split(','),
-      prototype_id: data.id
+      summary: data0.summary,
+      developer: data0.userNm,
+      team: data0.teamNm,
+      materials: mat,
+      tags: data0.tags.split(','),
+      prototype_id: data0.id
     }
     this.setState({ prototype_data: proto })
   }

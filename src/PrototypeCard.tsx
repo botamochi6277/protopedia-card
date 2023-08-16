@@ -14,6 +14,7 @@ import ConstructionIcon from '@mui/icons-material/Construction';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ArchiveIcon from '@mui/icons-material/Archive';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+import TokenIcon from '@mui/icons-material/Token';
 
 const DevelopingStatusChip = (props: { status: number }) => {
     const status = props.status - 1;
@@ -101,7 +102,7 @@ function PrototypeCard(props: {
     }, [props.prototypeData]);
 
     const fetchHandle = props.fetchHandle;
-    const material_chips = prototype_data.materials.map((material) => <Chip label={material} color="info" key={`material-${material}`} />)
+    const material_chips = prototype_data.materials.map((material) => <Chip label={material} icon={<TokenIcon />} color="info" key={`material-${material}`} />)
     const tag_chips = prototype_data.tags.map((tag) => <Chip label={tag} icon={<LocalOfferIcon />} key={`tag-${tag}`} />)
 
 
