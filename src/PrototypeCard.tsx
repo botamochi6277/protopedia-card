@@ -8,12 +8,12 @@ import MyAppBar from "./MyAppBar";
 import PhotographyImgUrl from "/photography.svg"
 import NoPhotographyImgUrl from "/no-photography.svg"
 import DoNotTouchImgUrl from "/do-not-touch.svg"
-
+// icons
 import EmojiObjectsIcon from '@mui/icons-material/EmojiObjects';
 import ConstructionIcon from '@mui/icons-material/Construction';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ArchiveIcon from '@mui/icons-material/Archive';
-
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 
 const DevelopingStatusChip = (props: { status: number }) => {
     const status = props.status - 1;
@@ -102,7 +102,7 @@ function PrototypeCard(props: {
 
     const fetchHandle = props.fetchHandle;
     const material_chips = prototype_data.materials.map((material) => <Chip label={material} color="info" key={`material-${material}`} />)
-    const tag_chips = prototype_data.tags.map((tag) => <Chip label={tag} key={`tag-${tag}`} />)
+    const tag_chips = prototype_data.tags.map((tag) => <Chip label={tag} icon={<LocalOfferIcon />} key={`tag-${tag}`} />)
 
 
     const sign_items = [
