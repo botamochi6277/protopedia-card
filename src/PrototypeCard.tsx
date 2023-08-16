@@ -9,16 +9,21 @@ import PhotographyImgUrl from "/photography.svg"
 import NoPhotographyImgUrl from "/no-photography.svg"
 import DoNotTouchImgUrl from "/do-not-touch.svg"
 
+import EmojiObjectsIcon from '@mui/icons-material/EmojiObjects';
+import ConstructionIcon from '@mui/icons-material/Construction';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import ArchiveIcon from '@mui/icons-material/Archive';
+
 
 const DevelopingStatusChip = (props: { status: number }) => {
     const status = props.status - 1;
 
     // （1:アイデア, 2:開発中, 3:完成, 4:供養）
     const chips = [
-        (<Chip label="Idea" color="primary" size="small" />),
-        (<Chip label="Developing" color="success" size="small" />),
-        (<Chip label="Completed" color="info" size="small" />),
-        (<Chip label="Memorial" color="secondary" size="small" />),
+        (<Chip label="Idea" icon={<EmojiObjectsIcon />} color="primary" size="small" />),
+        (<Chip label="Developing" icon={<ConstructionIcon />} color="success" size="small" />),
+        (<Chip label="Completed" icon={<CheckCircleIcon />} color="info" size="small" />),
+        (<Chip label="Memorial" icon={<ArchiveIcon />} color="secondary" size="small" />),
     ]
 
     return chips[status];
