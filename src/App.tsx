@@ -1,8 +1,8 @@
-import { Component } from 'react'
+import { Component } from 'react';
 
-import { Container } from '@mui/material'
+import { Container } from '@mui/material';
 
-import PrototypeCard from './PrototypeCard'
+import PrototypeCard from './PrototypeCard';
 
 
 class App extends Component {
@@ -34,16 +34,16 @@ class App extends Component {
     ]
     // material list with removing overlap values
     const mat = data.map(d => d.materialNm).filter((elem, index, self) => self.indexOf(elem) === index);
-    const images = images_ref.filter((im) => im); // remove null
+    const images = images_ref.filter((im) => (im)); // remove null
     const proto: PrototypeData = {
-      name: data0.prototypeNm,
-      developing_status: data0.status,
+      name: data0.prototypeNm ?? "Awesome Prototype",
+      developing_status: data0.status ?? 0,
       images: images,
-      summary: data0.summary,
-      developer: data0.userNm,
-      team: data0.teamNm,
-      materials: mat,
-      tags: data0.tags.split(','),
+      summary: data0.summary ?? "",
+      developer: data0.userNm ?? "HIRAGA Gennai",
+      team: data0.teamNm ?? "",
+      materials: mat ?? [],
+      tags: data0.tags ? data0.tags.split(',') : [],
       prototype_id: data0.id
     }
     this.setState({ prototype_data: proto })
