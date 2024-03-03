@@ -1,36 +1,37 @@
-import * as React from 'react'
+import * as React from 'react';
 
 import { styled, useTheme } from '@mui/material/styles';
 
-import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from "@mui/material/AppBar";
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
+import CssBaseline from '@mui/material/CssBaseline';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import IconButton from '@mui/material/IconButton';
 import Switch from '@mui/material/Switch';
-import FormControlLabel from '@mui/material/FormControlLabel';
+import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
 import Drawer from '@mui/material/Drawer';
 
-import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
+import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 
 // icons
-import MenuIcon from '@mui/icons-material/Menu';
-import UpdateIcon from '@mui/icons-material/Update';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import QrCodeIcon from '@mui/icons-material/QrCode';
-import ImageIcon from '@mui/icons-material/Image';
-import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
-import NoPhotographyIcon from '@mui/icons-material/NoPhotography';
 import DoNotTouchIcon from '@mui/icons-material/DoNotTouch';
+import ImageIcon from '@mui/icons-material/Image';
+import MenuIcon from '@mui/icons-material/Menu';
+import NoPhotographyIcon from '@mui/icons-material/NoPhotography';
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
+import QrCodeIcon from '@mui/icons-material/QrCode';
+import UpdateIcon from '@mui/icons-material/Update';
 
 // custom
-import MyForm from './MyForm'
+import { Button } from '@mui/material';
+import MyForm from './MyForm';
 
 type MyFormProps = {
   fetchDataHandle: (data: any) => void,
@@ -163,10 +164,10 @@ const MyAppBar = (props: MyFormProps) => {
         open={open}
       >
         <DrawerHeader>
-          Config
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </IconButton>
+          <Button
+            onClick={handleDrawerClose}
+            startIcon={theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          >Close Config</Button>
         </DrawerHeader>
         <Divider />
 
