@@ -1,12 +1,12 @@
-import * as React from 'react'
+import * as React from 'react';
 
-import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 
 // dialog
 import Dialog from '@mui/material/Dialog';
@@ -16,9 +16,9 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 // icons
-import UpdateIcon from '@mui/icons-material/Update';
-import HelpIcon from '@mui/icons-material/Help';
 import CloseIcon from '@mui/icons-material/Close';
+import HelpIcon from '@mui/icons-material/Help';
+import UpdateIcon from '@mui/icons-material/Update';
 
 import axios from 'axios';
 

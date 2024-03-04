@@ -26,6 +26,7 @@ import ImageIcon from '@mui/icons-material/Image';
 import MenuIcon from '@mui/icons-material/Menu';
 import NoPhotographyIcon from '@mui/icons-material/NoPhotography';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
+import PrintIcon from '@mui/icons-material/Print';
 import QrCodeIcon from '@mui/icons-material/QrCode';
 import UpdateIcon from '@mui/icons-material/Update';
 
@@ -133,7 +134,7 @@ const MyAppBar = (props: MyFormProps) => {
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
-            sx={{ mr: 2, ...(open && { display: 'none' }) }}
+            sx={{ mr: 2, displayPrint: 'none', ...(open && { display: 'none' }) }}
           >
             <MenuIcon />
           </IconButton>
@@ -148,6 +149,16 @@ const MyAppBar = (props: MyFormProps) => {
               color: 'inherit',
               textDecoration: 'none',
             }}>ProtoPedia Card</Typography>
+
+          <Typography sx={{ flexGrow: 1 }}>
+          </Typography>
+          <IconButton
+            color="inherit"
+            onClick={window.print}
+            sx={{ displayPrint: 'none' }}
+          >
+            <PrintIcon />
+          </IconButton>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -179,6 +190,7 @@ const MyAppBar = (props: MyFormProps) => {
             <MyForm fetchDataHandle={props.fetchDataHandle} />
           </ListItem>
         </List>
+
         <Divider />
         <List>
           {
