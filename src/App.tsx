@@ -1,14 +1,12 @@
-import { Component } from 'react';
-
 import { Container } from '@mui/material';
+import * as React from 'react';
 
 import PrototypeCard from './PrototypeCard';
 
 
-class App extends Component {
-
-  // initial state
-  prototype_data: PrototypeData = {
+const App = () => {
+  const [max_width, setMaxWidth] = React.useState("sm");
+  const [prototype_data, setPrototypeData] = React.useState({
     name: "ｽﾀﾝﾃﾞｨﾝｸﾞ ｽﾀｯｸﾁｬﾝ",
     developing_status: 3,
     images: ["https://protopedia.net/pic/d20b6eb0-de41-494e-b54a-983691e9957b.png"],
@@ -18,13 +16,9 @@ class App extends Component {
     materials: ["M5Stack Core 2"],
     tags: ["3D Printer", "action figure"],
     prototype_id: 4203
-  };
+  });
 
-  state = {
-    prototype_data: this.prototype_data,
-  }
-
-  handleStateChange = (data: PrototypeRawData[]) => {
+  const handleStateChange = (data: PrototypeRawData[]) => {
     if (data.length == 0) {
       return;
     }
@@ -46,21 +40,18 @@ class App extends Component {
       tags: data0.tags ? data0.tags.split(',') : [],
       prototype_id: data0.id
     }
-    this.setState({ prototype_data: proto })
+    setPrototypeData(proto);
   }
 
-  render() {
-    return (
-      <>
-        <Container maxWidth="sm">
-          <PrototypeCard
-            prototypeData={this.state.prototype_data}
-            fetchHandle={this.handleStateChange}
-          />
-        </Container>
-      </>
-    )
-  }
+  return (
+    <Container maxWidth="sm" >
+      <PrototypeCard
+        prototypeData={prototype_data}
+        fetchHandle={handleStateChange}
+      />
+    </Container>
+  )
+
 }
 
 export default App
