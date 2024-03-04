@@ -1,11 +1,11 @@
-import { Container } from '@mui/material';
+import { Breakpoint, Container } from '@mui/material';
 import * as React from 'react';
 
 import PrototypeCard from './PrototypeCard';
 
 
 const App = () => {
-  const [max_width, setMaxWidth] = React.useState("sm");
+  const [max_width, setMaxWidth] = React.useState<Breakpoint>("sm");
   const [prototype_data, setPrototypeData] = React.useState({
     name: "ｽﾀﾝﾃﾞｨﾝｸﾞ ｽﾀｯｸﾁｬﾝ",
     developing_status: 3,
@@ -44,10 +44,12 @@ const App = () => {
   }
 
   return (
-    <Container maxWidth="sm" >
+    <Container maxWidth={max_width} >
       <PrototypeCard
         prototypeData={prototype_data}
         fetchHandle={handleStateChange}
+        container_width={max_width}
+        setContainerWidth={setMaxWidth}
       />
     </Container>
   )

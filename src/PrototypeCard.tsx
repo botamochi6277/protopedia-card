@@ -1,18 +1,18 @@
-import * as React from 'react'
-import { Typography, Card, CardContent, CardMedia, Chip, CardActions, Stack } from "@mui/material";
+import { Breakpoint, Card, CardActions, CardContent, CardMedia, Chip, Stack, Typography } from "@mui/material";
+import * as React from 'react';
 
 import ImageListItem from '@mui/material/ImageListItem';
 import { styled } from '@mui/system';
 import MyAppBar from "./MyAppBar";
 
-import PhotographyImgUrl from "/photography.svg"
-import NoPhotographyImgUrl from "/no-photography.svg"
-import DoNotTouchImgUrl from "/do-not-touch.svg"
+import DoNotTouchImgUrl from "/do-not-touch.svg";
+import NoPhotographyImgUrl from "/no-photography.svg";
+import PhotographyImgUrl from "/photography.svg";
 // icons
-import EmojiObjectsIcon from '@mui/icons-material/EmojiObjects';
-import ConstructionIcon from '@mui/icons-material/Construction';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ArchiveIcon from '@mui/icons-material/Archive';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import ConstructionIcon from '@mui/icons-material/Construction';
+import EmojiObjectsIcon from '@mui/icons-material/EmojiObjects';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import TokenIcon from '@mui/icons-material/Token';
 
@@ -82,7 +82,9 @@ function MyImageList(props: { images: string[], visible: boolean[] }) {
 
 function PrototypeCard(props: {
     prototypeData: PrototypeData,
-    fetchHandle: (data: any) => void
+    fetchHandle: (data: any) => void,
+    container_width: Breakpoint,
+    setContainerWidth: (bp: Breakpoint) => void
 }) {
     // notification card
     const [qrcode_visibility, setQRcodeVisibility] = React.useState(true);// default show
@@ -137,6 +139,8 @@ function PrototypeCard(props: {
         <Card variant="outlined">
             <MyAppBar
                 fetchDataHandle={fetchHandle}
+                container_width={props.container_width}
+                setContainerWidth={props.setContainerWidth}
                 imgs_visibility={imgs_visibility}
                 imgVisibilityHandle={(v: boolean[]) => { setImgsVisibility(v); }}
                 qrcode_visibility={qrcode_visibility}

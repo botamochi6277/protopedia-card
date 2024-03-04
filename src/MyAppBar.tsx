@@ -1,7 +1,6 @@
 import * as React from 'react';
 
-import { styled, useTheme } from '@mui/material/styles';
-
+import { Button, FormControl, FormLabel, Radio, RadioGroup } from '@mui/material';
 import AppBar from "@mui/material/AppBar";
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,6 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import Switch from '@mui/material/Switch';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import { Breakpoint, styled, useTheme } from '@mui/material/styles';
 
 import Drawer from '@mui/material/Drawer';
 
@@ -22,6 +22,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import DoNotTouchIcon from '@mui/icons-material/DoNotTouch';
+import HeightIcon from '@mui/icons-material/Height';
 import ImageIcon from '@mui/icons-material/Image';
 import MenuIcon from '@mui/icons-material/Menu';
 import NoPhotographyIcon from '@mui/icons-material/NoPhotography';
@@ -29,13 +30,14 @@ import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import PrintIcon from '@mui/icons-material/Print';
 import QrCodeIcon from '@mui/icons-material/QrCode';
 import UpdateIcon from '@mui/icons-material/Update';
-
 // custom
-import { Button } from '@mui/material';
+
 import MyForm from './MyForm';
 
 type MyFormProps = {
   fetchDataHandle: (data: any) => void,
+  container_width: Breakpoint,
+  setContainerWidth: (bp: Breakpoint) => void,
   imgs_visibility: boolean[]
   imgVisibilityHandle: (b: boolean[]) => void,
   qrcode_visibility: boolean,
@@ -51,7 +53,7 @@ type MyFormProps = {
 
 const drawerWidth = 480;
 
-const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
+const MainStyle = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
   open?: boolean;
 }>(({ theme, open }) => ({
   flexGrow: 1,
@@ -192,6 +194,29 @@ const MyAppBar = (props: MyFormProps) => {
         </List>
 
         <Divider />
+        {/* Card width radio */}
+        <List>
+          <ListItem key="fetch data item">
+            <ListItemIcon>
+              <HeightIcon sx={{ transform: "rotate(90deg)" }} />
+            </ListItemIcon>
+            <FormControl>
+              <FormLabel>Card width</FormLabel>
+              <RadioGroup
+                row
+                value={props.container_width}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  props.setContainerWidth(event.target.value as Breakpoint)
+                }}
+              >
+                <FormControlLabel value={"xs"} control={<Radio />} label="xs" />
+                <FormControlLabel value={"sm"} control={<Radio />} label="sm" />
+                <FormControlLabel value={"md"} control={<Radio />} label="md" />
+              </RadioGroup>
+            </FormControl>
+          </ListItem>
+        </List>
+        <Divider />
         <List>
           {
             props.imgs_visibility.map((img, i) => {
@@ -228,8 +253,7 @@ const MyAppBar = (props: MyFormProps) => {
           )}
         </List>
       </Drawer>
-      <Main open={open}>
-      </Main>
+      <MainStyle open={open} />
     </Box>
   );
 }
