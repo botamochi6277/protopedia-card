@@ -24,6 +24,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import DoNotTouchIcon from '@mui/icons-material/DoNotTouch';
 import HeightIcon from '@mui/icons-material/Height';
 import ImageIcon from '@mui/icons-material/Image';
+import LabelIcon from '@mui/icons-material/Label';
 import MenuIcon from '@mui/icons-material/Menu';
 import NoPhotographyIcon from '@mui/icons-material/NoPhotography';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
@@ -48,6 +49,8 @@ type MyFormProps = {
   noPhotoSignHandle: (b: boolean) => void,
   dont_touch_visibility: boolean,
   dontTouchHandle: (b: boolean) => void,
+  footer_visibility: boolean,
+  footerVisibilityHandle: (b: boolean) => void,
 };
 
 
@@ -252,6 +255,22 @@ const MyAppBar = (props: MyFormProps) => {
             }
           )}
         </List>
+        <Divider />
+        <List>
+          <ListItem key="fetch data item">
+            <ListItemIcon>
+              <LabelIcon />
+            </ListItemIcon>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={props.footer_visibility}
+                  onChange={() => props.footerVisibilityHandle(!props.footer_visibility)}
+                />}
+              label={"footer"} />
+          </ListItem>
+        </List>
+
       </Drawer>
       <MainStyle open={open} />
     </Box>

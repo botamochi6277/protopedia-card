@@ -3,6 +3,7 @@ import * as React from 'react';
 
 import ImageListItem from '@mui/material/ImageListItem';
 import { styled } from '@mui/system';
+import Footer from "./Footer";
 import MyAppBar from "./MyAppBar";
 
 import DoNotTouchImgUrl from "/do-not-touch.svg";
@@ -92,6 +93,8 @@ function PrototypeCard(props: {
     const [no_photo_sign_visibility, setNoPhotoSignVisibility] = React.useState(false);
     const [dont_tough_sign_visibility, setDontTouchSignVisibility] = React.useState(false);
 
+    const [footer_visibility, setFooterVisibility] = React.useState(true);
+
     const prototype_data = props.prototypeData;
     const [imgs_visibility, setImgsVisibility] = React.useState(
         prototype_data.images.map((img) => img ? true : false)
@@ -151,6 +154,8 @@ function PrototypeCard(props: {
                 noPhotoSignHandle={(v: boolean) => { setNoPhotoSignVisibility(v); }}
                 dont_touch_visibility={dont_tough_sign_visibility}
                 dontTouchHandle={(v: boolean) => { setDontTouchSignVisibility(v); }}
+                footer_visibility={footer_visibility}
+                footerVisibilityHandle={(v: boolean) => setFooterVisibility(v)}
             />
 
             <CardMedia
@@ -215,6 +220,8 @@ function PrototypeCard(props: {
                     {tag_chips}
                 </Stack>
             </CardActions>
+            {footer_visibility ? <Footer /> : null}
+
         </Card>
     )
 }
