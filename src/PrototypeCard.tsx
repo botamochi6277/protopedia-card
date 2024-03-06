@@ -21,9 +21,9 @@ const DevelopingStatusChip = (props: { status: number }) => {
 
     // （1:アイデア, 2:開発中, 3:完成, 4:供養）
     const chips = [
-        (<Chip label="Idea" icon={<EmojiObjectsIcon />} color="primary" size="small" />),
-        (<Chip label="Developing" icon={<ConstructionIcon />} color="success" size="small" />),
-        (<Chip label="Completed" icon={<CheckCircleIcon />} color="info" size="small" />),
+        (<Chip label="Idea" icon={<EmojiObjectsIcon />} color="info" size="small" />),
+        (<Chip label="Developing" icon={<ConstructionIcon />} color="warning" size="small" />),
+        (<Chip label="Completed" icon={<CheckCircleIcon />} color="success" size="small" />),
         (<Chip label="Memorial" icon={<ArchiveIcon />} color="secondary" size="small" />),
     ]
 
