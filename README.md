@@ -23,3 +23,8 @@ npm install
 ```javascript
 npm run dev
 ```
+
+## Notes
+
+- [Maker Faire のブースの作り方（よりよい来場者とのコミュニケーションのために）](https://makezine.jp/blog/2014/05/tips-for-makers-the-basics-of-boothing.html)
+- [Maker Faire や NT で使える！ 展示会で楽しく触れ合える作品を展示する 7 つのコツ](https://fabcross.jp/category/make/20240918_exhibition_7tips.html)

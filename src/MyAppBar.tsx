@@ -4,8 +4,6 @@ import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 
-// icons
-import PrintIcon from "@mui/icons-material/Print";
 // custom
 
 const MyAppBar = () => {
@@ -30,13 +28,6 @@ const MyAppBar = () => {
           </Typography>
 
           <Typography sx={{ flexGrow: 1 }}></Typography>
-          <IconButton
-            color="inherit"
-            onClick={window.print}
-            sx={{ displayPrint: "none" }}
-          >
-            <PrintIcon />
-          </IconButton>
         </Toolbar>
       </AppBar>
       {/* <MainStyle open={open} /> */}

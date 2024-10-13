@@ -1,5 +1,6 @@
 import {
   Button,
+  IconButton,
   FormControl,
   FormLabel,
   Radio,
@@ -20,7 +21,6 @@ import DoNotTouchIcon from "@mui/icons-material/DoNotTouch";
 import HeightIcon from "@mui/icons-material/Height";
 import ImageIcon from "@mui/icons-material/Image";
 import LabelIcon from "@mui/icons-material/Label";
-import MenuIcon from "@mui/icons-material/Menu";
 import NoPhotographyIcon from "@mui/icons-material/NoPhotography";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import PrintIcon from "@mui/icons-material/Print";
@@ -76,52 +76,41 @@ type MyDrawerMenuProps = {
   footerVisibilityHandle: (b: boolean) => void;
 };
 
-const Drawer = styled(MuiDrawer, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme }) => ({
-  width: drawerWidth,
-  flexShrink: 0,
-  whiteSpace: "nowrap",
-  boxSizing: "border-box",
-  variants: [
-    {
-      props: ({ open }) => open,
-      style: {
-        ...openedMixin(theme),
-        "& .MuiDrawer-paper": openedMixin(theme),
-      },
-    },
-    {
-      props: ({ open }) => !open,
-      style: {
-        ...closedMixin(theme),
-        "& .MuiDrawer-paper": closedMixin(theme),
-      },
-    },
-  ],
-}));
-
-const MyDrawerMenu = (props: {
-  drawer_width: number;
-  theme: Theme;
+type OpenObj = {
   open: boolean;
-  openHandle: (b: boolean) => void;
-  fetchDataHandle: (data: any) => void;
-  container_width: Breakpoint;
-  setContainerWidth: (bp: Breakpoint) => void;
-  imgs_visibility: boolean[];
-  imgVisibilityHandle: (b: boolean[]) => void;
-  qrcode_visibility: boolean;
-  qrcodeHandle: (b: boolean) => void;
-  photo_sign_visibility: boolean;
-  photoSignHandle: (b: boolean) => void;
-  no_photo_sign_visibility: boolean;
-  noPhotoSignHandle: (b: boolean) => void;
-  dont_touch_visibility: boolean;
-  dontTouchHandle: (b: boolean) => void;
-  footer_visibility: boolean;
-  footerVisibilityHandle: (b: boolean) => void;
-}) => {
+};
+
+const Drawer = styled(
+  MuiDrawer, // component
+  {
+    shouldForwardProp: (prop) => prop !== "open",
+  } // [options]
+)(
+  ({ theme }) => ({
+    width: drawerWidth,
+    flexShrink: 0,
+    whiteSpace: "nowrap",
+    boxSizing: "border-box",
+    variants: [
+      {
+        props: (obj: OpenObj) => obj.open,
+        style: {
+          ...openedMixin(theme),
+          "& .MuiDrawer-paper": openedMixin(theme),
+        },
+      },
+      {
+        props: (obj: OpenObj) => !obj.open,
+        style: {
+          ...closedMixin(theme),
+          "& .MuiDrawer-paper": closedMixin(theme),
+        },
+      },
+    ],
+  }) //styles
+);
+
+const MyDrawerMenu = (props: MyDrawerMenuProps) => {
   const handleImgChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     index: number
@@ -167,8 +156,17 @@ const MyDrawerMenu = (props: {
   ];
 
   return (
-    <Drawer variant="permanent" anchor="left" open={props.open}>
-      <DrawerHeader>
+    <Drawer
+      variant="permanent"
+      anchor="left"
+      open={props.open}
+      sx={{ displayPrint: "none" }}
+    >
+      <DrawerHeader
+        sx={{
+          display: props.open ? "inherit" : "none",
+        }}
+      >
         {props.open ? (
           <Button
             onClick={() => {
@@ -184,21 +182,47 @@ const MyDrawerMenu = (props: {
           >
             Fold
           </Button>
-        ) : (
-          <Button
+        ) : null}
+      </DrawerHeader>
+
+      {/* List of actions */}
+      <List>
+        <ListItem
+          key={"open menu"}
+          sx={{
+            display: props.open ? "none" : "inherit",
+          }}
+        >
+          <IconButton
             onClick={() => {
               props.openHandle(true);
             }}
-            startIcon={
-              props.theme.direction === "ltr" ? (
-                <ChevronRightIcon />
-              ) : (
-                <ChevronLeftIcon />
-              )
-            }
-          ></Button>
-        )}
-      </DrawerHeader>
+            sx={{ padding: 0 }}
+            color="primary"
+          >
+            <ChevronRightIcon />
+          </IconButton>
+        </ListItem>
+        <ListItem key={"print"}>
+          <ListItemIcon>
+            <IconButton
+              color="primary"
+              onClick={window.print}
+              sx={{ padding: 0 }}
+            >
+              <PrintIcon onClick={window.print} />
+            </IconButton>
+          </ListItemIcon>
+          <Button
+            startIcon={<PrintIcon />}
+            onClick={window.print}
+            variant="contained"
+          >
+            Print
+          </Button>
+        </ListItem>
+      </List>
+
       <Divider />
 
       <List>
@@ -206,7 +230,9 @@ const MyDrawerMenu = (props: {
           <ListItemIcon>
             <UpdateIcon />
           </ListItemIcon>
-          <MyForm fetchDataHandle={props.fetchDataHandle} />
+          {props.open ? (
+            <MyForm fetchDataHandle={props.fetchDataHandle} />
+          ) : null}
         </ListItem>
       </List>
 
@@ -217,7 +243,12 @@ const MyDrawerMenu = (props: {
           <ListItemIcon>
             <HeightIcon sx={{ transform: "rotate(90deg)" }} />
           </ListItemIcon>
-          <FormControl>
+
+          <FormControl
+            sx={{
+              display: props.open ? "inherit" : "none",
+            }}
+          >
             <FormLabel>Card width</FormLabel>
             <RadioGroup
               row

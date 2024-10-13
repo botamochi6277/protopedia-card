@@ -38,6 +38,10 @@ const App = () => {
     prototype_data.images.map((img) => (img ? true : false))
   );
 
+  React.useEffect(() => {
+    setImgsVisibility(prototype_data.images.map((img) => (img ? true : false)));
+  }, [prototype_data]);
+
   const handleStateChange = (data: PrototypeRawData[]) => {
     if (data.length == 0) {
       return;
@@ -104,10 +108,11 @@ const App = () => {
         footer_visibility={footer_visibility}
         footerVisibilityHandle={(v: boolean) => setFooterVisibility(v)}
       />
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 1 }}>
         <PrototypeCard
           prototypeData={prototype_data}
           container_width={max_width}
+          imgs_visibility={imgs_visibility}
           qrcode_visibility={qrcode_visibility}
           photo_sign_visibility={photo_sign_visibility}
           no_photo_sign_visibility={no_photo_sign_visibility}

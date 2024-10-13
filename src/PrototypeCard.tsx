@@ -82,6 +82,7 @@ function PrototypeCard(props: {
   //   layout
   container_width: Breakpoint;
   //   visibility
+  imgs_visibility: boolean[];
   qrcode_visibility: boolean;
   photo_sign_visibility: boolean;
   no_photo_sign_visibility: boolean;
@@ -91,13 +92,13 @@ function PrototypeCard(props: {
   // notification card
 
   const prototype_data = props.prototypeData;
-  const [imgs_visibility, setImgsVisibility] = React.useState(
-    prototype_data.images.map((img) => (img ? true : false))
-  );
+  // const [imgs_visibility, setImgsVisibility] = React.useState(
+  //   prototype_data.images.map((img) => (img ? true : false))
+  // );
 
-  React.useEffect(() => {
-    setImgsVisibility(prototype_data.images.map((img) => (img ? true : false)));
-  }, [props.prototypeData]);
+  // React.useEffect(() => {
+  //   setImgsVisibility(prototype_data.images.map((img) => (img ? true : false)));
+  // }, [props.prototypeData]);
 
   const material_chips = prototype_data.materials.map((material) => (
     <Chip
@@ -148,7 +149,9 @@ function PrototypeCard(props: {
         title="featured image"
         sx={{
           display:
-            imgs_visibility.length > 0 && imgs_visibility[0] ? "block" : "none",
+            props.imgs_visibility.length > 0 && props.imgs_visibility[0]
+              ? "block"
+              : "none",
         }}
       />
       <CardContent>
@@ -173,14 +176,14 @@ function PrototypeCard(props: {
       <CardContent
         sx={{
           display:
-            imgs_visibility.slice(1, 5).filter((e) => e).length > 0
+            props.imgs_visibility.slice(1, 5).filter((e) => e).length > 0
               ? "block"
               : "none",
         }}
       >
         <MyImageList
           images={prototype_data.images.slice(1, 5)}
-          visible={imgs_visibility.slice(1, 5)}
+          visible={props.imgs_visibility.slice(1, 5)}
         />
       </CardContent>
 
