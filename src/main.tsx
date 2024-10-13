@@ -1,13 +1,13 @@
-import * as React from 'react';
-import { createRoot } from 'react-dom/client';
+import * as React from "react";
+import { createRoot } from "react-dom/client";
 
-import CssBaseline from '@mui/material/CssBaseline';
-import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from "@mui/material/CssBaseline";
+import { ThemeProvider } from "@mui/material/styles";
 
-import App from './App.tsx';
-import theme from './theme';
+import App from "./App.tsx";
+import theme from "./theme";
 
-const rootElement = document.querySelector('#root');
+const rootElement = document.querySelector("#root");
 
 if (rootElement) {
   const root = createRoot(rootElement);
