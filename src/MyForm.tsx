@@ -133,6 +133,7 @@ function MyForm(props: MyFormProps) {
 
   return (
     <Box sx={{ displayPrint: "none" }}>
+      <HelpDialog />
       <Stack
         direction={{ xs: "column" }}
         spacing={{ xs: 1 }}

@@ -8,7 +8,6 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import * as React from "react";
 
 import ImageListItem from "@mui/material/ImageListItem";
 
@@ -90,15 +89,7 @@ function PrototypeCard(props: {
   footer_visibility: boolean;
 }) {
   // notification card
-
   const prototype_data = props.prototypeData;
-  // const [imgs_visibility, setImgsVisibility] = React.useState(
-  //   prototype_data.images.map((img) => (img ? true : false))
-  // );
-
-  // React.useEffect(() => {
-  //   setImgsVisibility(prototype_data.images.map((img) => (img ? true : false)));
-  // }, [props.prototypeData]);
 
   const material_chips = prototype_data.materials.map((material) => (
     <Chip
