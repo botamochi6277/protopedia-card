@@ -31,9 +31,11 @@ const MyAppBar = (props: { prototype_id?: number }) => {
           </Typography>
 
           <Typography sx={{ flexGrow: 1 }}></Typography>
-          <IconButton sx={{ p: 0 }}>
-            <Avatar alt="QR code" src={qr_code_url} variant="rounded" />
-          </IconButton>
+          {props.prototype_id ? (
+            <IconButton sx={{ p: 0 }}>
+              <Avatar alt="QR code" src={qr_code_url} variant="rounded" />
+            </IconButton>
+          ) : null}
         </Toolbar>
       </AppBar>
       {/* <MainStyle open={open} /> */}

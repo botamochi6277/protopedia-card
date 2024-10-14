@@ -5,7 +5,7 @@ import PrototypeCard from "./PrototypeCard";
 import DetailCard from "./DetailCard";
 import MyDrawerMenu from "./MyDrawerMenu";
 import theme from "./theme";
-
+import Demo from "./Demo";
 const App = () => {
   // params
   const [drawer_is_opened, setDrawerIsOpened] = React.useState(true);
@@ -99,7 +99,7 @@ const App = () => {
   const drawer_width = 400;
 
   return (
-    <Container maxWidth={max_width} sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex" }}>
       <MyDrawerMenu
         drawer_width={drawer_width}
         theme={theme}
@@ -133,23 +133,26 @@ const App = () => {
         footer_visibility={footer_visibility}
         footerVisibilityHandle={(v: boolean) => setFooterVisibility(v)}
       />
-      <Box component="main" sx={{ flexGrow: 1 }}>
-        {page_number === 1 ? (
-          <PrototypeCard
-            prototype_data={prototype_data}
-            imgs_visibility={imgs_visibility}
-            qrcode_visibility={qrcode_visibility}
-            photo_sign_visibility={photo_sign_visibility}
-            no_photo_sign_visibility={no_photo_sign_visibility}
-            dont_tough_sign_visibility={dont_tough_sign_visibility}
-            footer_visibility={footer_visibility}
-          />
-        ) : null}
-        {page_number === 2 ? (
-          <DetailCard prototype_data={prototype_data} />
-        ) : null}
-      </Box>
-    </Container>
+
+      <Container maxWidth={max_width}>
+        <Box component="main" sx={{ flexGrow: 1 }}>
+          {page_number === 1 ? (
+            <PrototypeCard
+              prototype_data={prototype_data}
+              imgs_visibility={imgs_visibility}
+              qrcode_visibility={qrcode_visibility}
+              photo_sign_visibility={photo_sign_visibility}
+              no_photo_sign_visibility={no_photo_sign_visibility}
+              dont_tough_sign_visibility={dont_tough_sign_visibility}
+              footer_visibility={footer_visibility}
+            />
+          ) : null}
+          {page_number === 2 ? (
+            <DetailCard prototype_data={prototype_data} />
+          ) : null}
+        </Box>
+      </Container>
+    </Box>
   );
 };
 
