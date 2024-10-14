@@ -12,7 +12,16 @@ type PrototypeRawData = {
   teamNm: string,
   materialNm: string,
   tags: string,
-  id: number
+  id: number,
+  mainURL: string,// main image filename
+  createAt: string,
+  releaseAt: string,
+  updateAt: string,
+  freeComment: string,
+  systemDescription: string,
+  systemImage: string, // image url
+  goodCount: number,
+  viewCount: number,
 }
 
 type PrototypeData = {
@@ -25,4 +34,14 @@ type PrototypeData = {
   tags: string[],
   materials: string[],
   prototype_id: number,
+  main_img: string,
+  create_at: string,
+  release_at: string,
+  update_at: string,
+  free_comment: string,
+  system_description: string,
+  system_image: string,
+  good_count: number,
+  view_count: number,
+
 }

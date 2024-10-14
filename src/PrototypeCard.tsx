@@ -77,9 +77,7 @@ function MyImageList(props: { images: string[]; visible: boolean[] }) {
 }
 
 function PrototypeCard(props: {
-  prototypeData: PrototypeData;
-  //   layout
-  container_width: Breakpoint;
+  prototype_data: PrototypeData;
   //   visibility
   imgs_visibility: boolean[];
   qrcode_visibility: boolean;
@@ -89,7 +87,7 @@ function PrototypeCard(props: {
   footer_visibility: boolean;
 }) {
   // notification card
-  const prototype_data = props.prototypeData;
+  const prototype_data = props.prototype_data;
 
   const material_chips = prototype_data.materials.map((material) => (
     <Chip

@@ -11,6 +11,7 @@ import {
   ListItemIcon,
   FormControlLabel,
   Switch,
+  Pagination,
 } from "@mui/material";
 import { Theme, Breakpoint, CSSObject, styled } from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
@@ -26,6 +27,7 @@ import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import PrintIcon from "@mui/icons-material/Print";
 import QrCodeIcon from "@mui/icons-material/QrCode";
 import UpdateIcon from "@mui/icons-material/Update";
+import ArticleIcon from "@mui/icons-material/Article";
 
 // internal
 import DrawerHeader from "./DrawerHeader";
@@ -59,6 +61,8 @@ type MyDrawerMenuProps = {
   theme: Theme;
   open: boolean;
   openHandle: (b: boolean) => void;
+  page_number: number;
+  pageChangeHandle: (n: number) => void;
   fetchDataHandle: (data: any) => void;
   container_width: Breakpoint;
   setContainerWidth: (bp: Breakpoint) => void;
@@ -220,6 +224,16 @@ const MyDrawerMenu = (props: MyDrawerMenuProps) => {
           >
             Print
           </Button>
+        </ListItem>
+        <ListItem>
+          <ListItemIcon>
+            <ArticleIcon />
+          </ListItemIcon>
+          <Pagination
+            count={2}
+            page={props.page_number}
+            onChange={(_, v) => props.pageChangeHandle(v)}
+          />
         </ListItem>
       </List>
 

@@ -2,6 +2,7 @@ import * as React from "react";
 import { Breakpoint, Container, Box } from "@mui/material";
 
 import PrototypeCard from "./PrototypeCard";
+import DetailCard from "./DetailCard";
 import MyDrawerMenu from "./MyDrawerMenu";
 import theme from "./theme";
 
@@ -10,7 +11,9 @@ const App = () => {
   const [drawer_is_opened, setDrawerIsOpened] = React.useState(true);
   const [max_width, setMaxWidth] = React.useState<Breakpoint>("sm");
 
-  const [qrcode_visibility, setQRcodeVisibility] = React.useState(true); // default show
+  const [page_number, setPageNumber] = React.useState(1);
+
+  const [qrcode_visibility, setQRcodeVisibility] = React.useState(false); // default hide
   const [photo_sign_visibility, setPhotoSignVisibility] = React.useState(false);
   const [no_photo_sign_visibility, setNoPhotoSignVisibility] =
     React.useState(false);
@@ -32,6 +35,15 @@ const App = () => {
     materials: ["M5Stack Core 2"],
     tags: ["3D Printer", "action figure"],
     prototype_id: 4203,
+    main_img: "",
+    create_at: "2023-10-21T19:33:48+09:00",
+    release_at: "2023-10-21T19:33:48+09:00",
+    update_at: "2023-10-21T19:33:48+09:00",
+    free_comment: "",
+    system_description: "",
+    system_image: "",
+    good_count: 10,
+    view_count: 50,
   });
 
   const [imgs_visibility, setImgsVisibility] = React.useState(
@@ -42,7 +54,7 @@ const App = () => {
     setImgsVisibility(prototype_data.images.map((img) => (img ? true : false)));
   }, [prototype_data]);
 
-  const handleStateChange = (data: PrototypeRawData[]) => {
+  const parseProtoTypeRawData = (data: PrototypeRawData[]) => {
     if (data.length == 0) {
       return;
     }
@@ -69,6 +81,17 @@ const App = () => {
       materials: mat ?? [],
       tags: data0.tags ? data0.tags.split("|") : [],
       prototype_id: data0.id,
+      main_img: data0.mainURL
+        ? `https://protopedia.net/pic/${data0.mainURL}`
+        : "",
+      create_at: data0.createAt,
+      release_at: data0.releaseAt,
+      update_at: data0.updateAt,
+      free_comment: data0.freeComment ?? "",
+      system_description: data0.systemDescription ?? "",
+      system_image: data0.systemImage ?? "",
+      good_count: data0.goodCount,
+      view_count: data0.viewCount,
     };
     setPrototypeData(proto);
   };
@@ -82,7 +105,9 @@ const App = () => {
         theme={theme}
         open={drawer_is_opened}
         openHandle={setDrawerIsOpened}
-        fetchDataHandle={handleStateChange}
+        page_number={page_number}
+        pageChangeHandle={setPageNumber}
+        fetchDataHandle={parseProtoTypeRawData}
         container_width={max_width}
         setContainerWidth={setMaxWidth}
         imgs_visibility={imgs_visibility}
@@ -109,16 +134,20 @@ const App = () => {
         footerVisibilityHandle={(v: boolean) => setFooterVisibility(v)}
       />
       <Box component="main" sx={{ flexGrow: 1 }}>
-        <PrototypeCard
-          prototypeData={prototype_data}
-          container_width={max_width}
-          imgs_visibility={imgs_visibility}
-          qrcode_visibility={qrcode_visibility}
-          photo_sign_visibility={photo_sign_visibility}
-          no_photo_sign_visibility={no_photo_sign_visibility}
-          dont_tough_sign_visibility={dont_tough_sign_visibility}
-          footer_visibility={footer_visibility}
-        />
+        {page_number === 1 ? (
+          <PrototypeCard
+            prototype_data={prototype_data}
+            imgs_visibility={imgs_visibility}
+            qrcode_visibility={qrcode_visibility}
+            photo_sign_visibility={photo_sign_visibility}
+            no_photo_sign_visibility={no_photo_sign_visibility}
+            dont_tough_sign_visibility={dont_tough_sign_visibility}
+            footer_visibility={footer_visibility}
+          />
+        ) : null}
+        {page_number === 2 ? (
+          <DetailCard prototype_data={prototype_data} />
+        ) : null}
       </Box>
     </Container>
   );
