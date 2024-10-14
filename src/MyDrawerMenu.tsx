@@ -230,7 +230,7 @@ const MyDrawerMenu = (props: MyDrawerMenuProps) => {
             <ArticleIcon />
           </ListItemIcon>
           <Pagination
-            count={2}
+            count={3}
             page={props.page_number}
             onChange={(_, v) => props.pageChangeHandle(v)}
           />

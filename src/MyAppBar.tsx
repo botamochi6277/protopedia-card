@@ -8,7 +8,8 @@ import { Avatar } from "@mui/material";
 // custom
 
 const MyAppBar = (props: { prototype_id?: number }) => {
-  const qr_code_url = `https://api.qrserver.com/v1/create-qr-code/?data=https://protopedia.net/prototype/${props.prototype_id}&size=128x128&format=svg&color=1e1e1e&qzone=2`;
+  const page_url = `https://protopedia.net/prototype/${props.prototype_id}`;
+  const qr_code_url = `https://api.qrserver.com/v1/create-qr-code/?data=${page_url}&size=128x128&format=svg&color=1e1e1e&qzone=2`;
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -32,7 +33,7 @@ const MyAppBar = (props: { prototype_id?: number }) => {
 
           <Typography sx={{ flexGrow: 1 }}></Typography>
           {props.prototype_id ? (
-            <IconButton sx={{ p: 0 }}>
+            <IconButton sx={{ p: 0 }} href={page_url} target="_blank">
               <Avatar alt="QR code" src={qr_code_url} variant="rounded" />
             </IconButton>
           ) : null}

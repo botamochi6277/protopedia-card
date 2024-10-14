@@ -1,16 +1,4 @@
-import * as React from "react";
-import {
-  Breakpoint,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Chip,
-  Stack,
-  Link,
-  Typography,
-  Box,
-} from "@mui/material";
+import { CardMedia } from "@mui/material";
 
 import { marked } from "marked";
 import parse, {
@@ -27,11 +15,9 @@ marked.use({
   async: false,
 });
 
-import MyAppBar from "./MyAppBar";
-
-const parseMdStr = (md_str: string) => {
+const Markdown = (props: { md: string }) => {
   // parse md text to html text
-  const html_str = marked.parse(md_str) as string;
+  const html_str = marked.parse(props.md) as string;
   // html text -> react nodes
 
   const options: HTMLReactParserOptions = {
@@ -75,25 +61,4 @@ const parseMdStr = (md_str: string) => {
   return dom;
 };
 
-const DetailCard = (props: { prototype_data: PrototypeData }) => {
-  return (
-    <Card variant="outlined" sx={{ alignContent: "end" }}>
-      <MyAppBar />
-      <CardContent>
-        <Typography variant="h5" component="div">
-          Story
-        </Typography>
-        {parseMdStr(props.prototype_data.free_comment)}
-      </CardContent>
-
-      <CardContent>
-        <Typography variant="h5" component="div">
-          Architecture
-        </Typography>
-        {parseMdStr(props.prototype_data.system_description)}
-      </CardContent>
-    </Card>
-  );
-};
-
-export default DetailCard;
+export default Markdown;

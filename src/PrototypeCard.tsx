@@ -130,7 +130,7 @@ function PrototypeCard(props: {
 
   return (
     <Card variant="outlined" sx={{ alignContent: "end" }}>
-      <MyAppBar />
+      <MyAppBar prototype_id={props.prototype_data.prototype_id} />
 
       <CardMedia
         component="img"

@@ -2,10 +2,11 @@ import * as React from "react";
 import { Breakpoint, Container, Box } from "@mui/material";
 
 import PrototypeCard from "./PrototypeCard";
-import DetailCard from "./DetailCard";
+import SystemStructureCard from "./SystemStructureCard";
+import StoryCard from "./StoryCard";
 import MyDrawerMenu from "./MyDrawerMenu";
 import theme from "./theme";
-import Demo from "./Demo";
+
 const App = () => {
   // params
   const [drawer_is_opened, setDrawerIsOpened] = React.useState(true);
@@ -148,7 +149,10 @@ const App = () => {
             />
           ) : null}
           {page_number === 2 ? (
-            <DetailCard prototype_data={prototype_data} />
+            <SystemStructureCard prototype_data={prototype_data} />
+          ) : null}
+          {page_number === 3 ? (
+            <StoryCard prototype_data={prototype_data} />
           ) : null}
         </Box>
       </Container>
