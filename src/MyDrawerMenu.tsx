@@ -62,6 +62,8 @@ type MyDrawerMenuProps = {
   fetchDataHandle: (data: any) => void;
   container_width: Breakpoint;
   setContainerWidth: (bp: Breakpoint) => void;
+  featured_img_visibility: boolean;
+  featuredImgVisibilityHandle: (b: boolean) => void;
   imgs_visibility: boolean[];
   imgVisibilityHandle: (b: boolean[]) => void;
   footer_visibility: boolean;
@@ -236,6 +238,22 @@ const MyDrawerMenu = (props: MyDrawerMenuProps) => {
       </List>
       <Divider />
       <List>
+        <ListItem key={"feature image switch"}>
+          <ListItemIcon>
+            <ImageIcon />
+          </ListItemIcon>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={props.featured_img_visibility}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  props.featuredImgVisibilityHandle(event.target.checked);
+                }}
+              />
+            }
+            label={`Featured mage`}
+          />
+        </ListItem>
         {props.imgs_visibility.map((img, i) => {
           return (
             <ListItem key={`img-${img}-${i}`}>
@@ -251,7 +269,7 @@ const MyDrawerMenu = (props: MyDrawerMenuProps) => {
                     }}
                   />
                 }
-                label={i == 0 ? "Featured image" : `Image-${i}`}
+                label={`Image-${i + 1}`}
               />
             </ListItem>
           );

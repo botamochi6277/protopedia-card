@@ -13,7 +13,7 @@ type PrototypeRawData = {
   materialNm: string,
   tags: string,
   id: number,
-  mainURL: string,// main image filename
+  mainUrl: string,// main image filename
   createAt: string,
   releaseAt: string,
   updateAt: string,

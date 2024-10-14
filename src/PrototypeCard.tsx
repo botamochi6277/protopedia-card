@@ -73,6 +73,7 @@ function MyImageList(props: { images: string[]; visible: boolean[] }) {
 function PrototypeCard(props: {
   prototype_data: PrototypeData;
   //   visibility
+  featured_img_visibility: boolean;
   imgs_visibility: boolean[];
   footer_visibility: boolean;
 }) {
@@ -97,11 +98,12 @@ function PrototypeCard(props: {
 
       <CardMedia
         component="img"
-        image={prototype_data.images[0]}
+        image={prototype_data.main_img}
         title="featured image"
         sx={{
           display:
-            props.imgs_visibility.length > 0 && props.imgs_visibility[0]
+            props.prototype_data.main_img.length > 0 &&
+            props.featured_img_visibility
               ? "block"
               : "none",
         }}
@@ -128,14 +130,14 @@ function PrototypeCard(props: {
       <CardContent
         sx={{
           display:
-            props.imgs_visibility.slice(1, 5).filter((e) => e).length > 0
+            props.imgs_visibility.filter((e) => e).length > 0
               ? "block"
               : "none",
         }}
       >
         <MyImageList
-          images={prototype_data.images.slice(1, 5)}
-          visible={props.imgs_visibility.slice(1, 5)}
+          images={prototype_data.images}
+          visible={props.imgs_visibility}
         />
       </CardContent>
 

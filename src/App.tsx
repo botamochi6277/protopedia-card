@@ -14,12 +14,8 @@ const App = () => {
 
   const [page_number, setPageNumber] = React.useState(1);
 
-  const [qrcode_visibility, setQRcodeVisibility] = React.useState(false); // default hide
-  const [photo_sign_visibility, setPhotoSignVisibility] = React.useState(false);
-  const [no_photo_sign_visibility, setNoPhotoSignVisibility] =
-    React.useState(false);
-  const [dont_tough_sign_visibility, setDontTouchSignVisibility] =
-    React.useState(false);
+  const [featured_img_visibility, setFeaturedImgVisibility] =
+    React.useState(true); // default show
 
   const [footer_visibility, setFooterVisibility] = React.useState(true);
 
@@ -36,7 +32,8 @@ const App = () => {
     materials: ["M5Stack Core 2"],
     tags: ["3D Printer", "action figure"],
     prototype_id: 4203,
-    main_img: "",
+    main_img:
+      "https://protopedia.net/pic/d20b6eb0-de41-494e-b54a-983691e9957b.png",
     create_at: "2023-10-21T19:33:48+09:00",
     release_at: "2023-10-21T19:33:48+09:00",
     update_at: "2023-10-21T19:33:48+09:00",
@@ -82,8 +79,8 @@ const App = () => {
       materials: mat ?? [],
       tags: data0.tags ? data0.tags.split("|") : [],
       prototype_id: data0.id,
-      main_img: data0.mainURL
-        ? `https://protopedia.net/pic/${data0.mainURL}`
+      main_img: data0.mainUrl
+        ? `https://protopedia.net/pic/${data0.mainUrl}`
         : "",
       create_at: data0.createAt,
       release_at: data0.releaseAt,
@@ -111,25 +108,11 @@ const App = () => {
         fetchDataHandle={parseProtoTypeRawData}
         container_width={max_width}
         setContainerWidth={setMaxWidth}
+        featured_img_visibility={featured_img_visibility}
+        featuredImgVisibilityHandle={setFeaturedImgVisibility}
         imgs_visibility={imgs_visibility}
         imgVisibilityHandle={(v: boolean[]) => {
           setImgsVisibility(v);
-        }}
-        qrcode_visibility={qrcode_visibility}
-        qrcodeHandle={(v: boolean) => {
-          setQRcodeVisibility(v);
-        }}
-        photo_sign_visibility={photo_sign_visibility}
-        photoSignHandle={(v: boolean) => {
-          setPhotoSignVisibility(v);
-        }}
-        no_photo_sign_visibility={no_photo_sign_visibility}
-        noPhotoSignHandle={(v: boolean) => {
-          setNoPhotoSignVisibility(v);
-        }}
-        dont_touch_visibility={dont_tough_sign_visibility}
-        dontTouchHandle={(v: boolean) => {
-          setDontTouchSignVisibility(v);
         }}
         footer_visibility={footer_visibility}
         footerVisibilityHandle={(v: boolean) => setFooterVisibility(v)}
@@ -140,11 +123,8 @@ const App = () => {
           {page_number === 1 ? (
             <PrototypeCard
               prototype_data={prototype_data}
+              featured_img_visibility={featured_img_visibility}
               imgs_visibility={imgs_visibility}
-              qrcode_visibility={qrcode_visibility}
-              photo_sign_visibility={photo_sign_visibility}
-              no_photo_sign_visibility={no_photo_sign_visibility}
-              dont_tough_sign_visibility={dont_tough_sign_visibility}
               footer_visibility={footer_visibility}
             />
           ) : null}
