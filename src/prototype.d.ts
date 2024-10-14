@@ -38,8 +38,8 @@ type PrototypeData = {
   create_at: string,
   release_at: string,
   update_at: string,
-  free_comment: string,
-  system_description: string,
+  free_comment: string, // markdown text
+  system_description: string, // markdown text
   system_image: string,
   good_count: number,
   view_count: number,
