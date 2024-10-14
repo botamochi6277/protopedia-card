@@ -16,14 +16,19 @@ const App = () => {
 
   const [featured_img_visibility, setFeaturedImgVisibility] =
     React.useState(true); // default show
+  const [view_counter_visibility, setViewCounterVisibility] =
+    React.useState(true); // default show
+  const [good_counter_visibility, setGoodCounterVisibility] =
+    React.useState(true); // default show
 
-  const [footer_visibility, setFooterVisibility] = React.useState(true);
+  const [footer_visibility, setFooterVisibility] = React.useState(false);
 
   const [prototype_data, setPrototypeData] = React.useState({
     name: "ｽﾀﾝﾃﾞｨﾝｸﾞ ｽﾀｯｸﾁｬﾝ",
     developing_status: 3,
     images: [
       "https://protopedia.net/pic/d20b6eb0-de41-494e-b54a-983691e9957b.png",
+      "https://protopedia.net/pic/8728a2f6-8ec8-45af-8887-068d49b7d2f1.png",
     ],
     summary:
       "飛べる！踊れる！ｽﾀｯｸﾁｬﾝ!! なｽﾀｯｸﾁｬﾝのフィギュアです. The action figure of stackchan can pose flying, dancing, etc.",
@@ -37,10 +42,10 @@ const App = () => {
     create_at: "2023-10-21T19:33:48+09:00",
     release_at: "2023-10-21T19:33:48+09:00",
     update_at: "2023-10-21T19:33:48+09:00",
-    free_comment: "",
-    system_description: "",
+    free_comment: "hogehoge",
+    system_description: "hogehoge",
     system_image: "",
-    good_count: 10,
+    good_count: 5,
     view_count: 50,
   });
 
@@ -110,6 +115,10 @@ const App = () => {
         setContainerWidth={setMaxWidth}
         featured_img_visibility={featured_img_visibility}
         featuredImgVisibilityHandle={setFeaturedImgVisibility}
+        view_counter_visibility={view_counter_visibility}
+        viewCounterVisibilityHandle={setViewCounterVisibility}
+        good_counter_visibility={good_counter_visibility}
+        goodCounterVisibilityHandle={setGoodCounterVisibility}
         imgs_visibility={imgs_visibility}
         imgVisibilityHandle={(v: boolean[]) => {
           setImgsVisibility(v);
@@ -124,6 +133,8 @@ const App = () => {
             <PrototypeCard
               prototype_data={prototype_data}
               featured_img_visibility={featured_img_visibility}
+              view_counter_visibility={view_counter_visibility}
+              good_counter_visibility={good_counter_visibility}
               imgs_visibility={imgs_visibility}
               footer_visibility={footer_visibility}
             />

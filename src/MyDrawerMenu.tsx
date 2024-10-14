@@ -24,6 +24,8 @@ import LabelIcon from "@mui/icons-material/Label";
 import PrintIcon from "@mui/icons-material/Print";
 import UpdateIcon from "@mui/icons-material/Update";
 import ArticleIcon from "@mui/icons-material/Article";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 
 // internal
 import DrawerHeader from "./DrawerHeader";
@@ -64,6 +66,10 @@ type MyDrawerMenuProps = {
   setContainerWidth: (bp: Breakpoint) => void;
   featured_img_visibility: boolean;
   featuredImgVisibilityHandle: (b: boolean) => void;
+  view_counter_visibility: boolean;
+  viewCounterVisibilityHandle: (b: boolean) => void;
+  good_counter_visibility: boolean;
+  goodCounterVisibilityHandle: (b: boolean) => void;
   imgs_visibility: boolean[];
   imgVisibilityHandle: (b: boolean[]) => void;
   footer_visibility: boolean;
@@ -251,9 +257,42 @@ const MyDrawerMenu = (props: MyDrawerMenuProps) => {
                 }}
               />
             }
-            label={`Featured mage`}
+            label={`Featured image`}
           />
         </ListItem>
+        <ListItem key={"View counter switch"}>
+          <ListItemIcon>
+            <VisibilityIcon />
+          </ListItemIcon>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={props.view_counter_visibility}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  props.viewCounterVisibilityHandle(event.target.checked);
+                }}
+              />
+            }
+            label={`View counter`}
+          />
+        </ListItem>
+        <ListItem key={"Good counter switch"}>
+          <ListItemIcon>
+            <ThumbUpAltIcon />
+          </ListItemIcon>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={props.good_counter_visibility}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  props.goodCounterVisibilityHandle(event.target.checked);
+                }}
+              />
+            }
+            label={`Good counter`}
+          />
+        </ListItem>
+
         {props.imgs_visibility.map((img, i) => {
           return (
             <ListItem key={`img-${img}-${i}`}>

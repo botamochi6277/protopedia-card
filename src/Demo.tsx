@@ -1,16 +1,4 @@
-import { Twitter } from "@mui/icons-material";
-import {
-  Breakpoint,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Chip,
-  Stack,
-  Link,
-  Typography,
-  Box,
-} from "@mui/material";
+import { Typography, Box } from "@mui/material";
 
 import parse, {
   domToReact,

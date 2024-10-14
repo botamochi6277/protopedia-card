@@ -13,7 +13,7 @@ const MyAppBar = (props: { prototype_id?: number }) => {
 
   return (
     <Box sx={{ display: "flex" }}>
-      <AppBar position="static">
+      <AppBar position="static" elevation={0}>
         <Toolbar>
           <Typography
             variant="h6"
