@@ -18,14 +18,10 @@ import MuiDrawer from "@mui/material/Drawer";
 // icons
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import DoNotTouchIcon from "@mui/icons-material/DoNotTouch";
 import HeightIcon from "@mui/icons-material/Height";
 import ImageIcon from "@mui/icons-material/Image";
 import LabelIcon from "@mui/icons-material/Label";
-import NoPhotographyIcon from "@mui/icons-material/NoPhotography";
-import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import PrintIcon from "@mui/icons-material/Print";
-import QrCodeIcon from "@mui/icons-material/QrCode";
 import UpdateIcon from "@mui/icons-material/Update";
 import ArticleIcon from "@mui/icons-material/Article";
 
@@ -68,14 +64,6 @@ type MyDrawerMenuProps = {
   setContainerWidth: (bp: Breakpoint) => void;
   imgs_visibility: boolean[];
   imgVisibilityHandle: (b: boolean[]) => void;
-  qrcode_visibility: boolean;
-  qrcodeHandle: (b: boolean) => void;
-  photo_sign_visibility: boolean;
-  photoSignHandle: (b: boolean) => void;
-  no_photo_sign_visibility: boolean;
-  noPhotoSignHandle: (b: boolean) => void;
-  dont_touch_visibility: boolean;
-  dontTouchHandle: (b: boolean) => void;
   footer_visibility: boolean;
   footerVisibilityHandle: (b: boolean) => void;
 };
@@ -123,41 +111,6 @@ const MyDrawerMenu = (props: MyDrawerMenuProps) => {
     new_array[index] = event.target.checked;
     props.imgVisibilityHandle(new_array);
   };
-
-  const sign_items = [
-    {
-      name: "qrcode",
-      icon: <QrCodeIcon />,
-      checked: props.qrcode_visibility,
-      on_change: (event: React.ChangeEvent<HTMLInputElement>) => {
-        props.qrcodeHandle(event.target.checked);
-      },
-    },
-    {
-      name: "camera",
-      icon: <PhotoCameraIcon />,
-      checked: props.photo_sign_visibility,
-      on_change: (event: React.ChangeEvent<HTMLInputElement>) => {
-        props.photoSignHandle(event.target.checked);
-      },
-    },
-    {
-      name: "no photography",
-      icon: <NoPhotographyIcon />,
-      checked: props.no_photo_sign_visibility,
-      on_change: (event: React.ChangeEvent<HTMLInputElement>) => {
-        props.noPhotoSignHandle(event.target.checked);
-      },
-    },
-    {
-      name: "do not touch",
-      icon: <DoNotTouchIcon />,
-      checked: props.dont_touch_visibility,
-      on_change: (event: React.ChangeEvent<HTMLInputElement>) => {
-        props.dontTouchHandle(event.target.checked);
-      },
-    },
-  ];
 
   return (
     <Drawer
@@ -233,6 +186,9 @@ const MyDrawerMenu = (props: MyDrawerMenuProps) => {
             count={3}
             page={props.page_number}
             onChange={(_, v) => props.pageChangeHandle(v)}
+            sx={{
+              display: props.open ? "inherit" : "none",
+            }}
           />
         </ListItem>
       </List>
@@ -296,20 +252,6 @@ const MyDrawerMenu = (props: MyDrawerMenuProps) => {
                   />
                 }
                 label={i == 0 ? "Featured image" : `Image-${i}`}
-              />
-            </ListItem>
-          );
-        })}
-
-        {sign_items.map((item) => {
-          return (
-            <ListItem key={item.name}>
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <FormControlLabel
-                control={
-                  <Switch checked={item.checked} onChange={item.on_change} />
-                }
-                label={item.name}
               />
             </ListItem>
           );

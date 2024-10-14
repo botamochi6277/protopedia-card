@@ -1,5 +1,4 @@
 import {
-  Breakpoint,
   Card,
   CardActions,
   CardContent,
@@ -11,13 +10,8 @@ import {
 
 import ImageListItem from "@mui/material/ImageListItem";
 
-import { styled } from "@mui/material/styles";
 import Footer from "./Footer";
 import MyAppBar from "./MyAppBar";
-
-import DoNotTouchImgUrl from "/do-not-touch.svg";
-import NoPhotographyImgUrl from "/no-photography.svg";
-import PhotographyImgUrl from "/photography.svg";
 
 // icons
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
@@ -25,15 +19,15 @@ import TokenIcon from "@mui/icons-material/Token";
 
 import DevelopingStatusChip from "./DevelopingStatusChip";
 
-const CardContentNoPadding = styled(CardContent)(`
-    padding-left: 1;
-    padding-right: 1;  
-    padding-top: 0;
-    padding-bottom: 0;
-    &:last-child {
-        padding-bottom: 0;
-    }
-`);
+// const CardContentNoPadding = styled(CardContent)(`
+//     padding-left: 1;
+//     padding-right: 1;
+//     padding-top: 0;
+//     padding-bottom: 0;
+//     &:last-child {
+//         padding-bottom: 0;
+//     }
+// `);
 
 function MyImageList(props: { images: string[]; visible: boolean[] }) {
   const images: string[] = props.images;
@@ -80,10 +74,6 @@ function PrototypeCard(props: {
   prototype_data: PrototypeData;
   //   visibility
   imgs_visibility: boolean[];
-  qrcode_visibility: boolean;
-  photo_sign_visibility: boolean;
-  no_photo_sign_visibility: boolean;
-  dont_tough_sign_visibility: boolean;
   footer_visibility: boolean;
 }) {
   // notification card
@@ -100,33 +90,6 @@ function PrototypeCard(props: {
   const tag_chips = prototype_data.tags.map((tag) => (
     <Chip label={tag} icon={<LocalOfferIcon />} key={`tag-${tag}`} />
   ));
-
-  const sign_items = [
-    {
-      name: "qrcode",
-      image: `https://api.qrserver.com/v1/create-qr-code/?data=https://protopedia.net/prototype/${prototype_data.prototype_id}&size=128x128&format=svg&color=1e1e1e&qzone=2`,
-      text: "Read More",
-      visible: props.qrcode_visibility,
-    },
-    {
-      name: "welcome-to-taking-photo",
-      image: PhotographyImgUrl,
-      text: "Cameras Allowed",
-      visible: props.photo_sign_visibility,
-    },
-    {
-      name: "no-photography",
-      image: NoPhotographyImgUrl,
-      text: "No Photography",
-      visible: props.no_photo_sign_visibility,
-    },
-    {
-      name: "do-not-touch",
-      image: DoNotTouchImgUrl,
-      text: "Do Not Touch",
-      visible: props.dont_tough_sign_visibility,
-    },
-  ];
 
   return (
     <Card variant="outlined" sx={{ alignContent: "end" }}>
@@ -174,38 +137,6 @@ function PrototypeCard(props: {
           images={prototype_data.images.slice(1, 5)}
           visible={props.imgs_visibility.slice(1, 5)}
         />
-      </CardContent>
-
-      <CardContent sx={{ maxHeight: 600 }}>
-        <Stack
-          direction="row"
-          alignItems="center"
-          justifyContent={"space-evenly"}
-          spacing={1}
-          useFlexGap
-          flexWrap="wrap"
-        >
-          {sign_items.map((item) => {
-            return (
-              <Card
-                variant="outlined"
-                sx={{ display: item.visible ? "block" : "none" }}
-                key={item.name}
-              >
-                <CardMedia component="img" image={item.image} height="128" />
-                <CardContentNoPadding>
-                  <Typography
-                    textAlign={"center"}
-                    variant="body2"
-                    color="text.secondary"
-                  >
-                    {item.text}
-                  </Typography>
-                </CardContentNoPadding>
-              </Card>
-            );
-          })}
-        </Stack>
       </CardContent>
 
       <CardActions>
