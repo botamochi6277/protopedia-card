@@ -13,6 +13,10 @@ const App = () => {
   const [max_width, setMaxWidth] = React.useState<Breakpoint>("sm");
 
   const [page_number, setPageNumber] = React.useState(1);
+  const [notification, setNotification] = React.useState<NotificationItem>({
+    status: 0,
+    msg: "",
+  });
 
   const [featured_img_visibility, setFeaturedImgVisibility] =
     React.useState(true); // default show
@@ -110,6 +114,8 @@ const App = () => {
         openHandle={setDrawerIsOpened}
         page_number={page_number}
         pageChangeHandle={setPageNumber}
+        notification={notification}
+        setNotification={setNotification}
         fetchDataHandle={parseProtoTypeRawData}
         container_width={max_width}
         setContainerWidth={setMaxWidth}

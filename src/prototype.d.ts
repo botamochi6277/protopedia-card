@@ -45,3 +45,9 @@ type PrototypeData = {
   view_count: number,
 
 }
+
+
+type NotificationItem = {
+  status: number
+  msg: string
+}

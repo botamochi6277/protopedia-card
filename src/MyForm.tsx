@@ -24,6 +24,7 @@ import axios from "axios";
 
 type MyFormProps = {
   fetchDataHandle: (data: any) => void;
+  setNotification: (obj: NotificationItem) => void;
 };
 
 function MyForm(props: MyFormProps) {
@@ -68,18 +69,40 @@ function MyForm(props: MyFormProps) {
     }
 
     const url = `https://protopedia.net/api/prototypes.json?token=${token}&prototypeId=${prototype_id}`;
+    console.debug(`sending requesting to ${url}`);
     axios
       .get(url)
       .then((res) => {
+        console.debug("raw response: ");
         console.debug(res);
         // NOTE
         // protopedia APIの変な挙動
         // 登録されているmaterialの数だけprototype_raw dataが返ってくる...ことがある
         // なんで materialsとかでまとめて返さないのだろうか？？
+
+        if (res.status >= 400) {
+          props.setNotification({
+            status: res.status,
+            msg: `Fail to fetch prototype-${prototype_id}`,
+          });
+        }
+
         fetchDataHandle(res.data);
+        if (res.data.length == 0) {
+          props.setNotification({
+            status: res.status,
+            msg: `No prototype-${prototype_id} in ProtoPedia-API`,
+          });
+        } else {
+          props.setNotification({
+            status: res.status,
+            msg: `success to fetch prototype-${prototype_id}`,
+          });
+        }
       })
       .catch((error) => {
         console.log(error);
+        props.setNotification({ status: 0, msg: `${error}` });
       });
   };
 

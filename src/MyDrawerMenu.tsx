@@ -12,6 +12,7 @@ import {
   FormControlLabel,
   Switch,
   Pagination,
+  Alert,
 } from "@mui/material";
 import { Theme, Breakpoint, CSSObject, styled } from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
@@ -26,10 +27,20 @@ import UpdateIcon from "@mui/icons-material/Update";
 import ArticleIcon from "@mui/icons-material/Article";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
+import InfoIcon from "@mui/icons-material/Info";
 
 // internal
 import DrawerHeader from "./DrawerHeader";
 import MyForm from "./MyForm";
+
+const ApiAlert = (props: { notification: NotificationItem }) => {
+  if (200 <= props.notification.status && props.notification.status < 300) {
+    return <Alert security="success">{props.notification.msg}</Alert>;
+  }
+  if (400 <= props.notification.status) {
+    return <Alert security="warning">{props.notification.msg}</Alert>;
+  }
+};
 
 const drawerWidth = 400;
 
@@ -62,6 +73,8 @@ type MyDrawerMenuProps = {
   page_number: number;
   pageChangeHandle: (n: number) => void;
   fetchDataHandle: (data: any) => void;
+  notification: NotificationItem;
+  setNotification: (obj: NotificationItem) => void;
   container_width: Breakpoint;
   setContainerWidth: (bp: Breakpoint) => void;
   featured_img_visibility: boolean;
@@ -204,12 +217,23 @@ const MyDrawerMenu = (props: MyDrawerMenuProps) => {
       <Divider />
 
       <List>
+        {props.notification.msg.length > 0 ? (
+          <ListItem>
+            <ListItemIcon>
+              <InfoIcon />
+            </ListItemIcon>
+            <ApiAlert notification={props.notification} />
+          </ListItem>
+        ) : null}
         <ListItem key="fetch data item">
           <ListItemIcon>
             <UpdateIcon />
           </ListItemIcon>
           {props.open ? (
-            <MyForm fetchDataHandle={props.fetchDataHandle} />
+            <MyForm
+              fetchDataHandle={props.fetchDataHandle}
+              setNotification={props.setNotification}
+            />
           ) : null}
         </ListItem>
       </List>
@@ -217,7 +241,7 @@ const MyDrawerMenu = (props: MyDrawerMenuProps) => {
       <Divider />
       {/* Card width radio */}
       <List>
-        <ListItem key="fetch data item">
+        <ListItem key="card width item">
           <ListItemIcon>
             <HeightIcon sx={{ transform: "rotate(90deg)" }} />
           </ListItemIcon>
