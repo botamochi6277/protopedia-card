@@ -13,6 +13,8 @@ import {
   Switch,
   Pagination,
   Alert,
+  Slider,
+  Typography,
 } from "@mui/material";
 import { Theme, Breakpoint, CSSObject, styled } from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
@@ -85,6 +87,8 @@ type MyDrawerMenuProps = {
   goodCounterVisibilityHandle: (b: boolean) => void;
   imgs_visibility: boolean[];
   imgVisibilityHandle: (b: boolean[]) => void;
+  imgRowHeight: number;
+  setImgRowHeight: (n: number) => void;
   footer_visibility: boolean;
   footerVisibilityHandle: (b: boolean) => void;
 };
@@ -337,6 +341,21 @@ const MyDrawerMenu = (props: MyDrawerMenuProps) => {
             </ListItem>
           );
         })}
+        <ListItem key={"img row height"}>
+          <ListItemIcon>
+            <HeightIcon />
+          </ListItemIcon>
+          <Slider
+            aria-label="Image Row Height"
+            value={props.imgRowHeight}
+            onChange={(_, v) => {
+              props.setImgRowHeight(v as number);
+            }}
+            min={100}
+            max={300}
+            valueLabelDisplay="auto"
+          />
+        </ListItem>
       </List>
       <Divider />
       <List>

@@ -27,7 +27,20 @@ import TokenIcon from "@mui/icons-material/Token";
 //     }
 // `);
 
-function MyImageList(props: { images: string[]; visible: boolean[] }) {
+function srcset(image: string, size: number, rows = 1, cols = 1) {
+  return {
+    src: `${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format`,
+    srcSet: `${image}?w=${size * cols}&h=${
+      size * rows
+    }&fit=crop&auto=format&dpr=2 2x`,
+  };
+}
+
+function MyImageList(props: {
+  images: string[];
+  visible: boolean[];
+  rowHeight: number;
+}) {
   const images: string[] = props.images;
 
   if (images.length < 1) {
@@ -39,7 +52,7 @@ function MyImageList(props: { images: string[]; visible: boolean[] }) {
     return s[s.length - 1];
   };
 
-  const image_items = images
+  const imageItems = images
     .map((img, i) => {
       return props.visible[i]
         ? { img: img, title: imageTitle(img) }
@@ -47,9 +60,19 @@ function MyImageList(props: { images: string[]; visible: boolean[] }) {
     })
     .filter((e) => e);
 
+  const numCols = 2;
+  const numRows = Math.ceil(imageItems.length / numCols);
+  const listHeight = props.rowHeight * numRows + 10; // 10 is margin
+  // const listHeight =
+
   return (
-    <ImageList cols={2}>
-      {image_items.map((item, i) => (
+    <ImageList
+      sx={{ height: listHeight }}
+      cols={2}
+      rowHeight={props.rowHeight}
+      variant="quilted"
+    >
+      {imageItems.map((item, i) => (
         <ImageListItem key={`list-img-item-${i + 1}`}>
           <img src={`${item?.img}`} alt={item?.title} loading="lazy" />
         </ImageListItem>
@@ -163,6 +186,8 @@ function PrototypeCard(props: {
   view_counter_visibility?: boolean;
   good_counter_visibility?: boolean;
   footer_visibility?: boolean;
+  // imageList row height
+  imgRowHeight?: number;
 }) {
   // notification card
   const prototype_data = props.prototype_data;
@@ -223,6 +248,7 @@ function PrototypeCard(props: {
         <MyImageList
           images={prototype_data.images}
           visible={props.imgs_visibility}
+          rowHeight={props.imgRowHeight}
         />
 
         <Stack direction="row" useFlexGap flexWrap="wrap" spacing={1}>

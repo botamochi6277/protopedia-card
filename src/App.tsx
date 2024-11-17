@@ -57,6 +57,8 @@ const App = () => {
     prototype_data.images.map((img) => (img ? true : false))
   );
 
+  const [imgRowHeight, setImgRowHeight] = React.useState(200);
+
   React.useEffect(() => {
     setImgsVisibility(prototype_data.images.map((img) => (img ? true : false)));
   }, [prototype_data]);
@@ -129,6 +131,8 @@ const App = () => {
         imgVisibilityHandle={(v: boolean[]) => {
           setImgsVisibility(v);
         }}
+        imgRowHeight={imgRowHeight}
+        setImgRowHeight={setImgRowHeight}
         footer_visibility={footer_visibility}
         footerVisibilityHandle={(v: boolean) => setFooterVisibility(v)}
       />
@@ -142,6 +146,7 @@ const App = () => {
               view_counter_visibility={view_counter_visibility}
               good_counter_visibility={good_counter_visibility}
               imgs_visibility={imgs_visibility}
+              imgRowHeight={imgRowHeight}
               footer_visibility={footer_visibility}
             />
           ) : null}
