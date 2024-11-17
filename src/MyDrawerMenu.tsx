@@ -14,7 +14,6 @@ import {
   Pagination,
   Alert,
   Slider,
-  Typography,
 } from "@mui/material";
 import { Theme, Breakpoint, CSSObject, styled } from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
@@ -68,29 +67,29 @@ const closedMixin = (theme: Theme): CSSObject => ({
 });
 
 type MyDrawerMenuProps = {
-  drawer_width: number;
+  drawerWidth: number;
   theme: Theme;
   open: boolean;
-  openHandle: (b: boolean) => void;
-  page_number: number;
-  pageChangeHandle: (n: number) => void;
-  fetchDataHandle: (data: any) => void;
+  setOpen: (b: boolean) => void;
+  pageNumber: number;
+  setPageNumber: (n: number) => void;
+  setPrototypeData: (data: any) => void;
   notification: NotificationItem;
   setNotification: (obj: NotificationItem) => void;
-  container_width: Breakpoint;
+  containerWidth: Breakpoint;
   setContainerWidth: (bp: Breakpoint) => void;
-  featured_img_visibility: boolean;
-  featuredImgVisibilityHandle: (b: boolean) => void;
-  view_counter_visibility: boolean;
-  viewCounterVisibilityHandle: (b: boolean) => void;
-  good_counter_visibility: boolean;
-  goodCounterVisibilityHandle: (b: boolean) => void;
-  imgs_visibility: boolean[];
-  imgVisibilityHandle: (b: boolean[]) => void;
+  featuredImgVisibility: boolean;
+  setFeaturedImgVisibility: (b: boolean) => void;
+  viewCounterVisibility: boolean;
+  setViewCounterVisibility: (b: boolean) => void;
+  goodCounterVisibility: boolean;
+  setGoodCounterVisibility: (b: boolean) => void;
+  imgsVisibility: boolean[];
+  setImgsVisibility: (b: boolean[]) => void;
   imgRowHeight: number;
   setImgRowHeight: (n: number) => void;
-  footer_visibility: boolean;
-  footerVisibilityHandle: (b: boolean) => void;
+  footerVisibility: boolean;
+  setFooterVisibility: (b: boolean) => void;
 };
 
 type OpenObj = {
@@ -132,9 +131,9 @@ const MyDrawerMenu = (props: MyDrawerMenuProps) => {
     event: React.ChangeEvent<HTMLInputElement>,
     index: number
   ) => {
-    let new_array = props.imgs_visibility.concat();
+    let new_array = props.imgsVisibility.concat();
     new_array[index] = event.target.checked;
-    props.imgVisibilityHandle(new_array);
+    props.setImgsVisibility(new_array);
   };
 
   return (
@@ -152,7 +151,7 @@ const MyDrawerMenu = (props: MyDrawerMenuProps) => {
         {props.open ? (
           <Button
             onClick={() => {
-              props.openHandle(false);
+              props.setOpen(false);
             }}
             startIcon={
               props.theme.direction === "ltr" ? (
@@ -177,7 +176,7 @@ const MyDrawerMenu = (props: MyDrawerMenuProps) => {
         >
           <IconButton
             onClick={() => {
-              props.openHandle(true);
+              props.setOpen(true);
             }}
             sx={{ padding: 0 }}
             color="primary"
@@ -209,8 +208,8 @@ const MyDrawerMenu = (props: MyDrawerMenuProps) => {
           </ListItemIcon>
           <Pagination
             count={3}
-            page={props.page_number}
-            onChange={(_, v) => props.pageChangeHandle(v)}
+            page={props.pageNumber}
+            onChange={(_, v) => props.setPageNumber(v)}
             sx={{
               display: props.open ? "inherit" : "none",
             }}
@@ -235,7 +234,7 @@ const MyDrawerMenu = (props: MyDrawerMenuProps) => {
           </ListItemIcon>
           {props.open ? (
             <MyForm
-              fetchDataHandle={props.fetchDataHandle}
+              setPrototypeData={props.setPrototypeData}
               setNotification={props.setNotification}
             />
           ) : null}
@@ -258,7 +257,7 @@ const MyDrawerMenu = (props: MyDrawerMenuProps) => {
             <FormLabel>Card width</FormLabel>
             <RadioGroup
               row
-              value={props.container_width}
+              value={props.containerWidth}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 props.setContainerWidth(event.target.value as Breakpoint);
               }}
@@ -279,9 +278,9 @@ const MyDrawerMenu = (props: MyDrawerMenuProps) => {
           <FormControlLabel
             control={
               <Switch
-                checked={props.featured_img_visibility}
+                checked={props.featuredImgVisibility}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                  props.featuredImgVisibilityHandle(event.target.checked);
+                  props.setFeaturedImgVisibility(event.target.checked);
                 }}
               />
             }
@@ -295,9 +294,9 @@ const MyDrawerMenu = (props: MyDrawerMenuProps) => {
           <FormControlLabel
             control={
               <Switch
-                checked={props.view_counter_visibility}
+                checked={props.viewCounterVisibility}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                  props.viewCounterVisibilityHandle(event.target.checked);
+                  props.setViewCounterVisibility(event.target.checked);
                 }}
               />
             }
@@ -311,9 +310,9 @@ const MyDrawerMenu = (props: MyDrawerMenuProps) => {
           <FormControlLabel
             control={
               <Switch
-                checked={props.good_counter_visibility}
+                checked={props.goodCounterVisibility}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                  props.goodCounterVisibilityHandle(event.target.checked);
+                  props.setGoodCounterVisibility(event.target.checked);
                 }}
               />
             }
@@ -321,7 +320,7 @@ const MyDrawerMenu = (props: MyDrawerMenuProps) => {
           />
         </ListItem>
 
-        {props.imgs_visibility.map((img, i) => {
+        {props.imgsVisibility.map((img, i) => {
           return (
             <ListItem key={`img-${img}-${i}`}>
               <ListItemIcon>
@@ -330,7 +329,7 @@ const MyDrawerMenu = (props: MyDrawerMenuProps) => {
               <FormControlLabel
                 control={
                   <Switch
-                    checked={props.imgs_visibility[i]}
+                    checked={props.imgsVisibility[i]}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                       handleImgChange(event, i);
                     }}
@@ -366,9 +365,9 @@ const MyDrawerMenu = (props: MyDrawerMenuProps) => {
           <FormControlLabel
             control={
               <Switch
-                checked={props.footer_visibility}
+                checked={props.footerVisibility}
                 onChange={() =>
-                  props.footerVisibilityHandle(!props.footer_visibility)
+                  props.setFooterVisibility(!props.footerVisibility)
                 }
               />
             }

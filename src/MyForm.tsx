@@ -23,7 +23,7 @@ import UpdateIcon from "@mui/icons-material/Update";
 import axios from "axios";
 
 type MyFormProps = {
-  fetchDataHandle: (data: any) => void;
+  setPrototypeData: (data: any) => void;
   setNotification: (obj: NotificationItem) => void;
 };
 
@@ -43,7 +43,7 @@ function MyForm(props: MyFormProps) {
   const [prototype_id_error, setPrototypeIdError] = React.useState(false);
   const [prototype_id_help, setPrototypeIdHelp] = React.useState("");
 
-  const fetchDataHandle = props.fetchDataHandle;
+  const setPrototypeData = props.setPrototypeData;
 
   const fetchProjectData = (token: string, prototype_id: string) => {
     // input validation
@@ -87,7 +87,7 @@ function MyForm(props: MyFormProps) {
           });
         }
 
-        fetchDataHandle(res.data);
+        setPrototypeData(res.data);
         if (res.data.length == 0) {
           props.setNotification({
             status: res.status,

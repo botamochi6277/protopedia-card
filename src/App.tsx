@@ -12,20 +12,20 @@ const App = () => {
   const [drawer_is_opened, setDrawerIsOpened] = React.useState(true);
   const [max_width, setMaxWidth] = React.useState<Breakpoint>("sm");
 
-  const [page_number, setPageNumber] = React.useState(1);
+  const [pageNumber, setPageNumber] = React.useState(1);
   const [notification, setNotification] = React.useState<NotificationItem>({
     status: 0,
     msg: "",
   });
 
-  const [featured_img_visibility, setFeaturedImgVisibility] =
+  const [featuredImgVisibility, setFeaturedImgVisibility] =
     React.useState(true); // default show
-  const [view_counter_visibility, setViewCounterVisibility] =
+  const [viewCounterVisibility, setViewCounterVisibility] =
     React.useState(true); // default show
-  const [good_counter_visibility, setGoodCounterVisibility] =
+  const [goodCounterVisibility, setGoodCounterVisibility] =
     React.useState(true); // default show
 
-  const [footer_visibility, setFooterVisibility] = React.useState(false);
+  const [footerVisibility, setFooterVisibility] = React.useState(false);
 
   const [prototype_data, setPrototypeData] = React.useState({
     name: "ｽﾀﾝﾃﾞｨﾝｸﾞ ｽﾀｯｸﾁｬﾝ",
@@ -53,7 +53,7 @@ const App = () => {
     view_count: 50,
   });
 
-  const [imgs_visibility, setImgsVisibility] = React.useState(
+  const [imgsVisibility, setImgsVisibility] = React.useState(
     prototype_data.images.map((img) => (img ? true : false))
   );
 
@@ -105,55 +105,55 @@ const App = () => {
     setPrototypeData(proto);
   };
 
-  const drawer_width = 400;
+  const drawerWidth = 400;
 
   return (
     <Box sx={{ display: "flex" }}>
       <MyDrawerMenu
-        drawer_width={drawer_width}
+        drawerWidth={drawerWidth}
         theme={theme}
         open={drawer_is_opened}
-        openHandle={setDrawerIsOpened}
-        page_number={page_number}
-        pageChangeHandle={setPageNumber}
+        setOpen={setDrawerIsOpened}
+        pageNumber={pageNumber}
+        setPageNumber={setPageNumber}
         notification={notification}
         setNotification={setNotification}
-        fetchDataHandle={parseProtoTypeRawData}
-        container_width={max_width}
+        setPrototypeData={parseProtoTypeRawData}
+        containerWidth={max_width}
         setContainerWidth={setMaxWidth}
-        featured_img_visibility={featured_img_visibility}
-        featuredImgVisibilityHandle={setFeaturedImgVisibility}
-        view_counter_visibility={view_counter_visibility}
-        viewCounterVisibilityHandle={setViewCounterVisibility}
-        good_counter_visibility={good_counter_visibility}
-        goodCounterVisibilityHandle={setGoodCounterVisibility}
-        imgs_visibility={imgs_visibility}
-        imgVisibilityHandle={(v: boolean[]) => {
+        featuredImgVisibility={featuredImgVisibility}
+        setFeaturedImgVisibility={setFeaturedImgVisibility}
+        viewCounterVisibility={viewCounterVisibility}
+        setViewCounterVisibility={setViewCounterVisibility}
+        goodCounterVisibility={goodCounterVisibility}
+        setGoodCounterVisibility={setGoodCounterVisibility}
+        imgsVisibility={imgsVisibility}
+        setImgsVisibility={(v: boolean[]) => {
           setImgsVisibility(v);
         }}
         imgRowHeight={imgRowHeight}
         setImgRowHeight={setImgRowHeight}
-        footer_visibility={footer_visibility}
-        footerVisibilityHandle={(v: boolean) => setFooterVisibility(v)}
+        footerVisibility={footerVisibility}
+        setFooterVisibility={(v: boolean) => setFooterVisibility(v)}
       />
 
       <Container maxWidth={max_width}>
         <Box component="main" sx={{ flexGrow: 1 }}>
-          {page_number === 1 ? (
+          {pageNumber === 1 ? (
             <PrototypeCard
               prototype_data={prototype_data}
-              featured_img_visibility={featured_img_visibility}
-              view_counter_visibility={view_counter_visibility}
-              good_counter_visibility={good_counter_visibility}
-              imgs_visibility={imgs_visibility}
+              featuredImgVisibility={featuredImgVisibility}
+              viewCounterVisibility={viewCounterVisibility}
+              goodCounterVisibility={goodCounterVisibility}
+              imgsVisibility={imgsVisibility}
               imgRowHeight={imgRowHeight}
-              footer_visibility={footer_visibility}
+              footerVisibility={footerVisibility}
             />
           ) : null}
-          {page_number === 2 ? (
+          {pageNumber === 2 ? (
             <SystemStructureCard prototype_data={prototype_data} />
           ) : null}
-          {page_number === 3 ? (
+          {pageNumber === 3 ? (
             <StoryCard prototype_data={prototype_data} />
           ) : null}
         </Box>

@@ -27,15 +27,6 @@ import TokenIcon from "@mui/icons-material/Token";
 //     }
 // `);
 
-function srcset(image: string, size: number, rows = 1, cols = 1) {
-  return {
-    src: `${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format`,
-    srcSet: `${image}?w=${size * cols}&h=${
-      size * rows
-    }&fit=crop&auto=format&dpr=2 2x`,
-  };
-}
-
 function MyImageList(props: {
   images: string[];
   visible: boolean[];
@@ -181,13 +172,13 @@ const GoodCountBadge = (props: { count: number }) => {
 function PrototypeCard(props: {
   prototype_data: PrototypeData;
   //   visibility
-  featured_img_visibility: boolean;
-  imgs_visibility: boolean[];
-  view_counter_visibility?: boolean;
-  good_counter_visibility?: boolean;
-  footer_visibility?: boolean;
+  featuredImgVisibility: boolean;
+  imgsVisibility: boolean[];
+  viewCounterVisibility?: boolean;
+  goodCounterVisibility?: boolean;
+  footerVisibility?: boolean;
   // imageList row height
-  imgRowHeight?: number;
+  imgRowHeight: number;
 }) {
   // notification card
   const prototype_data = props.prototype_data;
@@ -215,7 +206,7 @@ function PrototypeCard(props: {
         sx={{
           display:
             props.prototype_data.main_img.length > 0 &&
-            props.featured_img_visibility
+            props.featuredImgVisibility
               ? "block"
               : "none",
         }}
@@ -232,10 +223,10 @@ function PrototypeCard(props: {
           {/* badges */}
           <Stack direction="row" alignItems="center" spacing={0.5}>
             <DevelopingStatusBadge status={prototype_data.developing_status} />
-            {props.view_counter_visibility ? (
+            {props.viewCounterVisibility ? (
               <ViewCountBadge count={props.prototype_data.view_count} />
             ) : null}
-            {props.good_counter_visibility ? (
+            {props.goodCounterVisibility ? (
               <GoodCountBadge count={props.prototype_data.good_count} />
             ) : null}
           </Stack>
@@ -247,7 +238,7 @@ function PrototypeCard(props: {
 
         <MyImageList
           images={prototype_data.images}
-          visible={props.imgs_visibility}
+          visible={props.imgsVisibility}
           rowHeight={props.imgRowHeight}
         />
 
@@ -257,7 +248,7 @@ function PrototypeCard(props: {
         </Stack>
       </CardContent>
 
-      {props.footer_visibility ? <Footer /> : null}
+      {props.footerVisibility ? <Footer /> : null}
     </Card>
   );
 }
