@@ -1,15 +1,14 @@
 import {
   Card,
-  CardActions,
   CardContent,
   CardMedia,
   Chip,
   Stack,
   Typography,
   Box,
+  ImageList,
+  ImageListItem,
 } from "@mui/material";
-
-import ImageListItem from "@mui/material/ImageListItem";
 
 import Footer from "./Footer";
 import MyAppBar from "./MyAppBar";
@@ -49,23 +48,13 @@ function MyImageList(props: { images: string[]; visible: boolean[] }) {
     .filter((e) => e);
 
   return (
-    <Stack direction="row" spacing={1} justifyContent="center">
+    <ImageList cols={2}>
       {image_items.map((item, i) => (
-        <ImageListItem
-          sx={{
-            height: 128,
-          }}
-          key={`list-img-item-${i + 1}`}
-        >
-          <img
-            src={`${item?.img}?w=164&h=164&fit=crop&auto=format`}
-            srcSet={`${item?.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-            alt={item?.title}
-            loading="lazy"
-          />
+        <ImageListItem key={`list-img-item-${i + 1}`}>
+          <img src={`${item?.img}`} alt={item?.title} loading="lazy" />
         </ImageListItem>
       ))}
-    </Stack>
+    </ImageList>
   );
 }
 
@@ -230,28 +219,18 @@ function PrototypeCard(props: {
         <Typography variant="body2" color="text.secondary">
           {prototype_data.summary}
         </Typography>
-      </CardContent>
 
-      <CardContent
-        sx={{
-          display:
-            props.imgs_visibility.filter((e) => e).length > 0
-              ? "block"
-              : "none",
-        }}
-      >
         <MyImageList
           images={prototype_data.images}
           visible={props.imgs_visibility}
         />
-      </CardContent>
 
-      <CardActions>
         <Stack direction="row" useFlexGap flexWrap="wrap" spacing={1}>
           {material_chips}
           {tag_chips}
         </Stack>
-      </CardActions>
+      </CardContent>
+
       {props.footer_visibility ? <Footer /> : null}
     </Card>
   );
