@@ -50,7 +50,11 @@ const Markdown = (props: { md: string }) => {
         );
       }
       if (node.name === "img" && node.attribs.src) {
-        return <CardMedia component="img" image={node.attribs.src} />;
+        const imgSrc = node.attribs.src.startsWith("http")
+          ? node.attribs.src
+          : `https://protopedia.net/${node.attribs.src.slice(1)}`;
+        console.log(`imgSrc: ${imgSrc}`);
+        return <CardMedia component="img" image={imgSrc} />;
       }
     },
   };

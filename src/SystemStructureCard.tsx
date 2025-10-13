@@ -14,7 +14,7 @@ const SystemStructureCard = (props: { prototype_data: PrototypeData }) => {
             image={props.prototype_data.system_image}
           />
         ) : null}
-        <Typography variant="h5" component="div">
+        <Typography variant="h5" component="div" sx={{ fontWeight: "bold" }}>
           システム構成
         </Typography>
         <Markdown md={props.prototype_data.system_description} />
