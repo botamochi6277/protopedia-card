@@ -1,0 +1,76 @@
+{
+    "craft_materials": [
+        {
+            "material": "Blender",
+            "icon": "Blender"
+        },
+        {
+            "material": "PlatformIO",
+            "icon": "PlatformIO"
+        },
+        {
+            "material": "Arduino",
+            "icon": "Arduino"
+        },
+        {
+            "material": "Raspberry Pi",
+            "icon": "RaspberryPi"
+        },
+        {
+            "material": "MediaPipe",
+            "icon": "MediaPipe"
+        },
+        {
+            "material": "Google",
+            "icon": "Google"
+        },
+        {
+            "material": "Gemini",
+            "icon": "GoogleGemini"
+        },
+        {
+            "material": "Ubuntu",
+            "icon": "Ubuntu"
+        },
+        {
+            "material": "Figma",
+            "icon": "Figma"
+        },
+        {
+            "material": "Unity",
+            "icon": "Unity/black"
+        },
+        {
+            "material": "Scratch",
+            "icon": "Scratch"
+        },
+        {
+            "material": "MicroPython",
+            "icon": "MicroPython"
+        },
+        {
+            "material": "Python",
+            "icon": "Python"
+        },
+        {
+            "material": "ChatGPT",
+            "icon": "OpenAI"
+        },
+        {
+            "material": "3Dプリンター",
+            "icon": "3d_printer.svg"
+        },
+        {
+            "material": "レーザーカッター",
+            "icon": "laser_cutter.svg"
+        },
+        {
+            "material": "M5Stack",
+            "icon": "m5stack.svg"
+        },
+        {
+            "material": "ｽﾀｯｸﾁｬﾝ",
+            "icon": "stackchan.svg"
+        }
+    ]
+}

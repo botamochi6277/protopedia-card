@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Card,
   CardContent,
   CardMedia,
@@ -13,9 +14,10 @@ import {
 import Footer from "./Footer";
 import MyAppBar from "./MyAppBar";
 
+import craft_materials from "./assets/craft-materials.json";
+
 // icons
-import LocalOfferIcon from "@mui/icons-material/LocalOffer";
-import TokenIcon from "@mui/icons-material/Token";
+import TagIcon from "@mui/icons-material/Tag";
 
 // const CardContentNoPadding = styled(CardContent)(`
 //     padding-left: 1;
@@ -169,6 +171,47 @@ const GoodCountBadge = (props: { count: number }) => {
   );
 };
 
+const CraftMaterialChip = (props: { material: string }) => {
+  const m = craft_materials.craft_materials.find((e) =>
+    props.material.includes(e.material)
+  );
+
+  // m is undefined -> token icon
+  // m.material include .svg -> use it as is
+  // else -> use simpleicon
+  // https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/Conditional_operator
+
+  const avatar =
+    m === undefined ? (
+      <Avatar>{props.material[0]}</Avatar>
+    ) : m.icon.endsWith(".svg") ? (
+      <Avatar
+        src={m.icon}
+        sx={{ width: 20, height: 20, backgroundColor: "#ffffff" }}
+      />
+    ) : (
+      <Avatar sx={{ width: 20, height: 20, backgroundColor: "#ffffff" }}>
+        <Box
+          component="img"
+          sx={{
+            padding: 0.4,
+          }}
+          src={`https://cdn.simpleicons.org/${m.icon}`}
+        />
+      </Avatar>
+    );
+
+  return (
+    <Chip
+      label={props.material}
+      avatar={avatar}
+      color="info"
+      variant="outlined"
+      key={`material-${props.material}`}
+    />
+  );
+};
+
 function PrototypeCard(props: {
   prototype_data: PrototypeData;
   //   visibility
@@ -184,15 +227,15 @@ function PrototypeCard(props: {
   const prototype_data = props.prototype_data;
 
   const material_chips = prototype_data.materials.map((material) => (
-    <Chip
-      label={material}
-      icon={<TokenIcon />}
-      color="info"
-      key={`material-${material}`}
-    />
+    <CraftMaterialChip material={material} key={`material-${material}`} />
   ));
   const tag_chips = prototype_data.tags.map((tag) => (
-    <Chip label={tag} icon={<LocalOfferIcon />} key={`tag-${tag}`} />
+    <Chip
+      label={tag}
+      icon={<TagIcon />}
+      variant="outlined"
+      key={`tag-${tag}`}
+    />
   ));
 
   return (

@@ -51,3 +51,8 @@ type NotificationItem = {
   status: number
   msg: string
 }
+
+type CraftMaterialItem = {
+  material: string
+  icon: string
+}
