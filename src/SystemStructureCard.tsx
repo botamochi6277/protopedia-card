@@ -7,13 +7,13 @@ const SystemStructureCard = (props: { prototype_data: PrototypeData }) => {
   return (
     <Card variant="outlined" sx={{ alignContent: "end" }}>
       <MyAppBar />
+      {props.prototype_data.system_image.length > 0 ? (
+        <CardMedia
+          component={"img"}
+          image={props.prototype_data.system_image}
+        />
+      ) : null}
       <CardContent>
-        {props.prototype_data.system_image.length > 0 ? (
-          <CardMedia
-            component={"img"}
-            image={props.prototype_data.system_image}
-          />
-        ) : null}
         <Typography variant="h5" component="div" sx={{ fontWeight: "bold" }}>
           システム構成
         </Typography>
