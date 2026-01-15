@@ -9,8 +9,8 @@ import theme from "./theme";
 
 const App = () => {
   // params
-  const [drawer_is_opened, setDrawerIsOpened] = React.useState(true);
-  const [max_width, setMaxWidth] = React.useState<Breakpoint>("sm");
+  const [drawerIsOpened, setDrawerIsOpened] = React.useState(true);
+  const [maxWidth, setMaxWidth] = React.useState<Breakpoint>("sm");
 
   const [pageNumber, setPageNumber] = React.useState(1);
   const [notification, setNotification] = React.useState<NotificationItem>({
@@ -27,7 +27,7 @@ const App = () => {
 
   const [footerVisibility, setFooterVisibility] = React.useState(false);
 
-  const [prototype_data, setPrototypeData] = React.useState({
+  const [prototypeData, setPrototypeData] = React.useState({
     name: "ｽﾀﾝﾃﾞｨﾝｸﾞ ｽﾀｯｸﾁｬﾝ",
     developing_status: 3,
     images: [
@@ -54,14 +54,16 @@ const App = () => {
   });
 
   const [imgsVisibility, setImgsVisibility] = React.useState(
-    prototype_data.images.map((img) => (img ? true : false))
+    prototypeData.images.map((img) => (img ? true : false))
   );
 
   const [imgRowHeight, setImgRowHeight] = React.useState(200);
 
+  const [mainImageIdx, setMainImageIdx] = React.useState(0);
+
   React.useEffect(() => {
-    setImgsVisibility(prototype_data.images.map((img) => (img ? true : false)));
-  }, [prototype_data]);
+    setImgsVisibility(prototypeData.images.map((img) => (img ? true : false)));
+  }, [prototypeData]);
 
   const parseProtoTypeRawData = (data: PrototypeRawData[]) => {
     if (data.length == 0) {
@@ -112,14 +114,14 @@ const App = () => {
       <MyDrawerMenu
         drawerWidth={drawerWidth}
         theme={theme}
-        open={drawer_is_opened}
+        open={drawerIsOpened}
         setOpen={setDrawerIsOpened}
         pageNumber={pageNumber}
         setPageNumber={setPageNumber}
         notification={notification}
         setNotification={setNotification}
         setPrototypeData={parseProtoTypeRawData}
-        containerWidth={max_width}
+        containerWidth={maxWidth}
         setContainerWidth={setMaxWidth}
         featuredImgVisibility={featuredImgVisibility}
         setFeaturedImgVisibility={setFeaturedImgVisibility}
@@ -135,26 +137,29 @@ const App = () => {
         setImgRowHeight={setImgRowHeight}
         footerVisibility={footerVisibility}
         setFooterVisibility={(v: boolean) => setFooterVisibility(v)}
+        mainImageIdx={mainImageIdx}
+        setMainImageIdx={setMainImageIdx}
       />
 
-      <Container maxWidth={max_width}>
+      <Container maxWidth={maxWidth}>
         <Box component="main" sx={{ flexGrow: 1 }}>
           {pageNumber === 1 ? (
             <PrototypeCard
-              prototype_data={prototype_data}
+              prototypeData={prototypeData}
               featuredImgVisibility={featuredImgVisibility}
               viewCounterVisibility={viewCounterVisibility}
               goodCounterVisibility={goodCounterVisibility}
               imgsVisibility={imgsVisibility}
               imgRowHeight={imgRowHeight}
               footerVisibility={footerVisibility}
+              mainImageIdx={mainImageIdx}
             />
           ) : null}
           {pageNumber === 2 ? (
-            <SystemStructureCard prototype_data={prototype_data} />
+            <SystemStructureCard prototypeData={prototypeData} />
           ) : null}
           {pageNumber === 3 ? (
-            <StoryCard prototype_data={prototype_data} />
+            <StoryCard prototypeData={prototypeData} />
           ) : null}
         </Box>
       </Container>

@@ -14,6 +14,9 @@ import {
   Pagination,
   Alert,
   Slider,
+  InputLabel,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import { Theme, Breakpoint, CSSObject, styled } from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
@@ -90,6 +93,8 @@ type MyDrawerMenuProps = {
   setImgRowHeight: (n: number) => void;
   footerVisibility: boolean;
   setFooterVisibility: (b: boolean) => void;
+  mainImageIdx: number;
+  setMainImageIdx: (n: number) => void;
 };
 
 type OpenObj = {
@@ -127,6 +132,10 @@ const Drawer = styled(
 );
 
 const MyDrawerMenu = (props: MyDrawerMenuProps) => {
+  const featureImageCandidates = [-1].concat(
+    props.imgsVisibility.map((_, i) => i)
+  );
+
   const handleImgChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     index: number
@@ -186,12 +195,8 @@ const MyDrawerMenu = (props: MyDrawerMenuProps) => {
         </ListItem>
         <ListItem key={"print"}>
           <ListItemIcon>
-            <IconButton
-              color="primary"
-              onClick={window.print}
-              sx={{ padding: 0 }}
-            >
-              <PrintIcon onClick={window.print} />
+            <IconButton color="primary" sx={{ padding: 0 }}>
+              <PrintIcon />
             </IconButton>
           </ListItemIcon>
           <Button
@@ -271,10 +276,39 @@ const MyDrawerMenu = (props: MyDrawerMenuProps) => {
       </List>
       <Divider />
       <List>
-        <ListItem key={"feature image switch"}>
+        <ListItem key={"feature image selector"}>
           <ListItemIcon>
             <ImageIcon />
           </ListItemIcon>
+          <FormControl>
+            <InputLabel id="main-image-select-label">Feature Image</InputLabel>
+            <Select
+              labelId="main-image-select-label"
+              id="main-image-select"
+              value={props.mainImageIdx}
+              label="Feature Image"
+              onChange={(event) => {
+                props.setMainImageIdx(event.target.value as number);
+                console.log(`main image index: ${event.target.value}`);
+              }}
+            >
+              {featureImageCandidates.map((_, i) => {
+                if (i == 0) {
+                  return (
+                    <MenuItem value={i - 1} key={`invisible-feature-image`}>
+                      Invisible
+                    </MenuItem>
+                  );
+                }
+                return (
+                  <MenuItem value={i - 1} key={`main-image-MenuItem -${i}`}>
+                    Image-{i}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+          {/*           
           <FormControlLabel
             control={
               <Switch
@@ -285,7 +319,7 @@ const MyDrawerMenu = (props: MyDrawerMenuProps) => {
               />
             }
             label={`Featured image`}
-          />
+          /> */}
         </ListItem>
         <ListItem key={"View counter switch"}>
           <ListItemIcon>

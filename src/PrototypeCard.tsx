@@ -213,7 +213,7 @@ const CraftMaterialChip = (props: { material: string }) => {
 };
 
 function PrototypeCard(props: {
-  prototype_data: PrototypeData;
+  prototypeData: PrototypeData;
   //   visibility
   featuredImgVisibility: boolean;
   imgsVisibility: boolean[];
@@ -222,14 +222,15 @@ function PrototypeCard(props: {
   footerVisibility?: boolean;
   // imageList row height
   imgRowHeight: number;
+  mainImageIdx: number;
 }) {
   // notification card
-  const prototype_data = props.prototype_data;
+  const prototypeData = props.prototypeData;
 
-  const material_chips = prototype_data.materials.map((material) => (
+  const material_chips = prototypeData.materials.map((material) => (
     <CraftMaterialChip material={material} key={`material-${material}`} />
   ));
-  const tag_chips = prototype_data.tags.map((tag) => (
+  const tag_chips = prototypeData.tags.map((tag) => (
     <Chip
       label={tag}
       icon={<TagIcon />}
@@ -240,47 +241,51 @@ function PrototypeCard(props: {
 
   return (
     <Card variant="outlined" sx={{ alignContent: "end" }}>
-      <MyAppBar prototype_id={props.prototype_data.prototype_id} />
+      <MyAppBar prototype_id={props.prototypeData.prototype_id} />
 
       <CardMedia
         component="img"
-        image={prototype_data.main_img}
+        image={
+          prototypeData.images.length > 0
+            ? prototypeData.images[props.mainImageIdx]
+            : ""
+        }
         title="featured image"
         sx={{
           display:
-            props.prototype_data.main_img.length > 0 &&
-            props.featuredImgVisibility
+            0 <= props.mainImageIdx &&
+            props.mainImageIdx < props.prototypeData.images.length
               ? "block"
               : "none",
         }}
       />
       <CardContent>
         <Typography variant="h5" component="div">
-          {prototype_data.name}
+          {prototypeData.name}
         </Typography>
         <Typography gutterBottom variant="subtitle1" color="text.secondary">
-          {prototype_data.team ? `${prototype_data.team}/` : ""}
-          {prototype_data.developer}
+          {prototypeData.team ? `${prototypeData.team}/` : ""}
+          {prototypeData.developer}
         </Typography>
         <Box sx={{ marginBottom: 1 }}>
           {/* badges */}
           <Stack direction="row" alignItems="center" spacing={0.5}>
-            <DevelopingStatusBadge status={prototype_data.developing_status} />
+            <DevelopingStatusBadge status={prototypeData.developing_status} />
             {props.viewCounterVisibility ? (
-              <ViewCountBadge count={props.prototype_data.view_count} />
+              <ViewCountBadge count={props.prototypeData.view_count} />
             ) : null}
             {props.goodCounterVisibility ? (
-              <GoodCountBadge count={props.prototype_data.good_count} />
+              <GoodCountBadge count={props.prototypeData.good_count} />
             ) : null}
           </Stack>
         </Box>
 
         <Typography variant="body2" color="text.secondary">
-          {prototype_data.summary}
+          {prototypeData.summary}
         </Typography>
 
         <MyImageList
-          images={prototype_data.images}
+          images={prototypeData.images}
           visible={props.imgsVisibility}
           rowHeight={props.imgRowHeight}
         />

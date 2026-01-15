@@ -3,7 +3,7 @@ import { Card, CardContent, Typography } from "@mui/material";
 import Markdown from "./Markdown";
 import MyAppBar from "./MyAppBar";
 
-const StoryCard = (props: { prototype_data: PrototypeData }) => {
+const StoryCard = (props: { prototypeData: PrototypeData }) => {
   return (
     <Card variant="outlined" sx={{ alignContent: "end" }}>
       <MyAppBar />
@@ -11,7 +11,7 @@ const StoryCard = (props: { prototype_data: PrototypeData }) => {
         <Typography variant="h5" component="div">
           ストーリー
         </Typography>
-        <Markdown md={props.prototype_data.free_comment} />
+        <Markdown md={props.prototypeData.free_comment} />
       </CardContent>
     </Card>
   );
