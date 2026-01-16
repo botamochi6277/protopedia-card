@@ -76,6 +76,7 @@ const App = () => {
       data0.image3,
       data0.image4,
       data0.image5,
+      data0.systemImage,
     ];
     // material list with removing overlap values
     const mat = data
